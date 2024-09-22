@@ -4,12 +4,12 @@
 </div>
 
 <p align="center" width="100%">
-    <img src="./Lung Cancer Image Detection/Assets/LungCancerDetection.png" width="70%" height="70%" />
+    <img src="./Lung Cancer Image Detection/Assets/LungCancerDetection.png" width="55%" height="55%" />
 </p>
 
 <div align="center">
     <a>
-        <img src="https://img.shields.io/badge/Made%20with-Jupyter-F1948A?style=for-the-badge&logo=Jupyter&logoColor=F1948A">
+        <img src="https://img.shields.io/badge/Made%20with-Jupyter-b62d46?style=for-the-badge&logo=Jupyter&logoColor=b62d46">
     </a>
 </div>
 
@@ -17,16 +17,16 @@
 
 <div align="center">
     <a href="https://github.com/EstevesX10/_INSERT_REPO_NAME_/blob/main/LICENSE">
-        <img src="https://img.shields.io/github/license/EstevesX10/_INSERT_REPO_NAME_?style=flat&logo=gitbook&logoColor=F1948A&label=License&color=F1948A">
+        <img src="https://img.shields.io/github/license/EstevesX10/_INSERT_REPO_NAME_?style=flat&logo=gitbook&logoColor=b62d46&label=License&color=b62d46">
     </a>
     <a href="">
-        <img src="https://img.shields.io/github/repo-size/EstevesX10/_INSERT_REPO_NAME_?style=flat&logo=googlecloudstorage&logoColor=F1948A&logoSize=auto&label=Repository%20Size&color=F1948A">
+        <img src="https://img.shields.io/github/repo-size/EstevesX10/_INSERT_REPO_NAME_?style=flat&logo=googlecloudstorage&logoColor=b62d46&logoSize=auto&label=Repository%20Size&color=b62d46">
     </a>
     <a href="">
-        <img src="https://img.shields.io/github/stars/EstevesX10/_INSERT_REPO_NAME_?style=flat&logo=adafruit&logoColor=F1948A&logoSize=auto&label=Stars&color=F1948A">
+        <img src="https://img.shields.io/github/stars/EstevesX10/_INSERT_REPO_NAME_?style=flat&logo=adafruit&logoColor=b62d46&logoSize=auto&label=Stars&color=b62d46">
     </a>
     <a href="https://github.com/EstevesX10/_INSERT_REPO_NAME_/blob/main/DEPENDENCIES.md">
-        <img src="https://img.shields.io/badge/Dependencies-DEPENDENCIES.md-white?style=flat&logo=anaconda&logoColor=F1948A&logoSize=auto&color=F1948A"> 
+        <img src="https://img.shields.io/badge/Dependencies-DEPENDENCIES.md-white?style=flat&logo=anaconda&logoColor=b62d46&logoSize=auto&color=b62d46"> 
     </a>
 </div>
 
