@@ -9,6 +9,7 @@ The [PyLIDC](https://pylidc.github.io/index.html) package is mainly composed by 
 
 - Scan Class
 - Annotation Class
+- Contour Class
 
 ## Scan Class
 
@@ -871,6 +872,131 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
                     </td>
                 </tr>
             </table>
+        </div>
+    </td>
+  </tr>
+</table>
+
+## Contour Class
+
+> The Contour class holds the nodule boundary coordinate data of a pylidc.Annotation object for a single slice in the CT volume.
+
+According to the Documentation an instance of [Contour](https://pylidc.github.io/contour.html) contains the following attributes:
+
+
+<table width="100%" border="1" cellpadding="5">
+  <tr>
+    <th colspan="3" height="100%">
+        <div align="center">
+            Contour Class Attributes
+        </div>
+    </th>
+  </tr>
+  
+  <tr>
+    <td width="15%">
+        <div align="center">
+        <b>Parameter</b>
+        </div>
+    </td>
+    <td width="5%">
+        <div align="center">
+        <b>Type</b>
+        </div>
+    </td>
+    <td width="75%">
+        <div align="center">
+        <b>Description</b>
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="15%">
+        <div align="center">
+        <b>inclusion</b>
+        </div>
+    </td>
+    <td width="5%">
+        <div align="center">
+            bool
+        </div>
+    </td>
+    <td width="75%">
+        <div align="center">
+            If True, the area inside the contour is included as part of the nodule. If False, the area inside the contour is excluded from the nodule
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="15%">
+        <div align="center">
+        <b>image_z_position</b>
+        </div>
+    </td>
+    <td width="5%">
+        <div align="center">
+            float
+        </div>
+    </td>
+    <td width="75%">
+        <div align="center">
+            This is the imageZposition defined via the xml annnotations for this contour. It is the z-coordinate of DICOM attribute (0020,0032)
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="15%">
+        <div align="center">
+        <b>dicom_file_name</b>
+        </div>
+    </td>
+    <td width="5%">
+        <div align="center">
+            string
+        </div>
+    </td>
+    <td width="75%">
+        <div align="center">
+            This is the name of the corresponding DICOM file for the scan to which this contour belongs, having the same image_z_position
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="15%">
+        <div align="center">
+        <b>coords</b>
+        </div>
+    </td>
+    <td width="5%">
+        <div align="center">
+            string
+        </div>
+    </td>
+    <td width="75%">
+        <div align="center">
+            These are the sequential (x,y) coordinates of the curve, stored as a string. It is better to access these coordinates using the to_matrix method, which returns a numpy array rather than a string
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="15%">
+        <div align="center">
+        <b>image_k_position</b>
+        </div>
+    </td>
+    <td width="5%">
+        <div align="center">
+            float
+        </div>
+    </td>
+    <td width="75%">
+        <div align="center">
+            Similar to Contour.image_z_position, but returns the index instead of the z coordinate value
         </div>
     </td>
   </tr>
