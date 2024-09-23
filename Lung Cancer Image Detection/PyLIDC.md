@@ -1082,37 +1082,233 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
   </tr>
   
   <tr>
-    <td width="15%">
-        <div align="center">
-        <b>Parameter</b>
-        </div>
-    </td>
     <td width="5%">
         <div align="center">
-        <b>Type</b>
+        <b>Method</b>
         </div>
     </td>
-    <td width="75%">
+    <td width="65%">
         <div align="center">
-        <b>Description</b>
+        <b>Arguments</b>
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">
+        <b>Returns</b>
         </div>
     </td>
   </tr>
 
   <tr>
-    <td width="15%">
-        <div align="center">
-        <b>inclusion</b>
-        </div>
-    </td>
     <td width="5%">
         <div align="center">
-            bool
+        <b>bbox</b>
         </div>
     </td>
-    <td width="75%">
+    <td width="65%">
         <div align="center">
-            If True, the area inside the contour is included as part of the nodule. If False, the area inside the contour is excluded from the nodule
+            <b>pad</b><br/> (int, list of ints, or float, default=None)
+            <br/><br/>
+            Slice indices' bounding box with at least pad millimeters along each coordinate axis direction
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">
+            Returns a tuple of Python slice objects that can be used to index into the image volume corresponding to the extent of the (padded) bounding box
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>bbox_dims</b>
+        </div>
+    </td>
+    <td width="65%">
+        <div align="center">
+            <b>pad</b><br/> (int, list of ints, or float, default=None)
+            <br/><br/>
+            Slice indices' bounding box with at least pad millimeters along each coordinate axis direction
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">
+            Return the physical dimensions of the nodule bounding box in millimeters along each coordinate axis [Eg: dims[i] is the length in millimeters of the bounding box along the coordinate axis i]
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>bbox_matrix</b>
+        </div>
+    </td>
+    <td width="65%">
+        <div align="center">
+            <b>pad</b><br/> (int, list of ints, or float, default=None)
+            <br/><br/>
+            Slice indices' bounding box with at least pad millimeters along each coordinate axis direction
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">
+            The bbox function returns a tuple of slices to be used to index into an image volume. On the other hand, bbox_array returns a 3x2 matrix where each row is the (start, stop) indices of the i, j, and k axes [Eg: bb_mat[i] is the stop and start indices (inclusive) of the bounding box along coordinate axis i]
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>boolean_mask</b>
+        </div>
+    </td>
+    <td width="65%">
+        <div align="center">
+            <b>pad</b> <br/> (int, list of ints, or float, default=None)
+            <br/><br/>
+            Slice indices' bounding box with at least pad millimeters along each coordinate axis direction
+            <hr/>
+            <b>bbox</b> <br/> (3x2 NumPy array, default=None)
+            <br/><br/>
+            If bbox is provided, then pad is ignored. This argument allows for more fine-tuned control of placement of the mask in a volume
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">
+            A boolean volume where 1 indicates nodule and 0 indicates non-nodule. The mask volume covers the extent of the voxels in the image volume given by annotation.bbox, i.e., the mask volume would be placed in the full image volume according to the bbox attribute
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>feature_vals</b>
+        </div>
+    </td>
+    <td width="65%">
+        <div align="center">
+            <b>return_str</b> <br/> (bool, default=False)
+            <br/><br/>
+            If True, a list of strings is also returned, corresponding to the meaning of each numerical feature value.
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">
+            Returns all feature values as a numpy array in the order presented in feature_names [It returns fvals[, fstrs]: fvals is an array of numerical values corresponding to the numerical feature values for the annotation. fstrs is a list of semantic string interpretations of the numerical values given in fvals]
+        </div>
+    </td>
+  </tr>
+  
+  <tr>
+    <td width="15%">
+        <div align="center">
+        <b>print_formatted_feature_table</b>
+        </div>
+    </td>
+    <td width="65%">
+        <div align="center">
+            None
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">
+            Prints all feature values as a string table
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>uniform_cubic_resample</b>
+        </div>
+    </td>
+    <td width="65%">
+        <div align="center">    
+            <b>side_length</b> <br/> (integer, default=None)
+            <br/><br/>
+            The physical length of each side of the new cubic volume in millimeters
+            <hr/>
+            <b>resample_vol</b> <br/> (boolean, default=True) 
+            <br/><br/>
+            If False, only the segmentation volume is resampled
+            <hr/>
+            <b>irp_pts</b> <br/> (3-tuple from meshgrid)
+            <br/><br/>
+            If provided, the volume(s) will be resampled over these interpolation points, rather than the automatically calculated points
+            <hr/>
+            <b>return_irp_pts</b> <br/> (boolean, default=False)
+            <br/><br/>
+            If True, the interpolation points (ix,iy,iz) at which the volume(s) were resampled are returned
+            <hr/>
+            <b>verbose</b> <br/> (boolean, default=True)
+            <br/><br/>
+            Turn the loading statement on / off
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">
+            Get the CT value volume and respective boolean mask volume. The volumes are interpolated and resampled to have uniform spacing of 1mm along each dimension. The resulting volumes are cubic of the specified side_length. Thus, the returned volumes have dimensions, (side_length+1,)*3 (since side_length is the spacing) [[ct_volume,] mask [, irp_pts]]
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>visualize_in_3d</b>
+        </div>
+    </td>
+    <td width="65%">
+        <div align="center">
+            <b>edgecolor</b> <br/> (string color or rgb 3-tuple)
+            <br/><br/>
+            Sets edgecolors of triangulation. Ignored if backend != matplotlib
+            <hr/>
+            <b>cmap</b> <br/> (matplotlib colormap string)
+            <br/><br/>
+            Sets the facecolors of the triangulation
+            <hr/>
+            <b>step</b> <br/> (int, default=1)
+            <br/><br/>
+            The step_size parameter for the skimage marching_cubes function
+            <hr/>
+            <b>figsize</b> <br/> (tuple, default=(5,5))
+            <br/><br/>
+            Figure size for the displayed volume
+            <hr/>
+            <b>backend</b> <br/> (string)
+            <br/><br/>
+            The backend for visualization. Default is matplotlib
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">
+            Visualize in 3d a triangulation of the nodule’s surface
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>visualize_in_scan</b>
+        </div>
+    </td>
+    <td width="65%">
+        <div align="center">
+            <b>verbose</b> <br/> (bool, default=True)
+            <br/><br/>
+            Turn the image loading statement on/off
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">
+            Engage an interactive visualization of the slices of the scan along with scan and annotation information
         </div>
     </td>
   </tr>
@@ -1469,7 +1665,7 @@ According to the Documentation an instance of [Contour](https://pylidc.github.io
     </td>
     <td width="30%">
         <div align="center">
-        <b>Description</b>
+        <b>Description and Return Values</b>
         </div>
     </td>
   </tr>
