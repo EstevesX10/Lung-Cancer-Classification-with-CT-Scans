@@ -301,7 +301,7 @@ According to the Documentation an instance of the [Scan](https://pylidc.github.i
   <tr>
     <td width="5%">
         <div align="center">
-        <b>cluster_annotations</b>
+        <b>cluster_annotations()</b>
         </div>
     </td>
     <td width="65%">
@@ -341,7 +341,7 @@ According to the Documentation an instance of the [Scan](https://pylidc.github.i
   <tr>
     <td width="5%">
         <div align="center">
-        <b>get_path_to_dicom_files</b>
+        <b>get_path_to_dicom_files()</b>
         </div>
     </td>
     <td width="65%">
@@ -359,7 +359,7 @@ According to the Documentation an instance of the [Scan](https://pylidc.github.i
   <tr>
     <td width="5%">
         <div align="center">
-        <b>load_all_dicom_images</b>
+        <b>load_all_dicom_images()</b>
         </div>
     </td>
     <td width="65%">
@@ -379,7 +379,7 @@ According to the Documentation an instance of the [Scan](https://pylidc.github.i
   <tr>
     <td width="5%">
         <div align="center">
-        <b>to_volume</b>
+        <b>to_volume()</b>
         </div>
     </td>
     <td width="65%">
@@ -399,7 +399,7 @@ According to the Documentation an instance of the [Scan](https://pylidc.github.i
   <tr>
     <td width="5%">
         <div align="center">
-        <b>visualize</b>
+        <b>visualize()</b>
         </div>
     </td>
     <td width="65%">
@@ -1367,7 +1367,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
   <tr>
     <td width="5%">
         <div align="center">
-        <b>bbox</b>
+        <b>bbox()</b>
         </div>
     </td>
     <td width="65%">
@@ -1387,7 +1387,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
   <tr>
     <td width="5%">
         <div align="center">
-        <b>bbox_dims</b>
+        <b>bbox_dims()</b>
         </div>
     </td>
     <td width="65%">
@@ -1407,7 +1407,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
   <tr>
     <td width="5%">
         <div align="center">
-        <b>bbox_matrix</b>
+        <b>bbox_matrix()</b>
         </div>
     </td>
     <td width="65%">
@@ -1427,7 +1427,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
   <tr>
     <td width="5%">
         <div align="center">
-        <b>boolean_mask</b>
+        <b>boolean_mask()</b>
         </div>
     </td>
     <td width="65%">
@@ -1451,7 +1451,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
   <tr>
     <td width="5%">
         <div align="center">
-        <b>feature_vals</b>
+        <b>feature_vals()</b>
         </div>
     </td>
     <td width="65%">
@@ -1471,7 +1471,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
   <tr>
     <td width="15%">
         <div align="center">
-        <b>print_formatted_feature_table</b>
+        <b>print_formatted_feature_table()</b>
         </div>
     </td>
     <td width="65%">
@@ -1489,7 +1489,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
   <tr>
     <td width="5%">
         <div align="center">
-        <b>uniform_cubic_resample</b>
+        <b>uniform_cubic_resample()</b>
         </div>
     </td>
     <td width="65%">
@@ -1525,7 +1525,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
   <tr>
     <td width="5%">
         <div align="center">
-        <b>visualize_in_3d</b>
+        <b>visualize_in_3d()</b>
         </div>
     </td>
     <td width="65%">
@@ -1561,7 +1561,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
   <tr>
     <td width="5%">
         <div align="center">
-        <b>visualize_in_scan</b>
+        <b>visualize_in_scan()</b>
         </div>
     </td>
     <td width="65%">
@@ -1938,7 +1938,7 @@ According to the Documentation an instance of [Contour](https://pylidc.github.io
   <tr>
     <td width="15%">
         <div align="center">
-        <b>to_matrix</b>
+        <b>to_matrix()</b>
         </div>
     </td>
     <td width="55%">
