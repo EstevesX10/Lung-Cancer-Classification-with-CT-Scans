@@ -684,7 +684,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td>Highly Suspicious</td>
+                    <div align="center"><td>Highly Suspicious</td></div>
                 </tr>
             </table>
         </div>
