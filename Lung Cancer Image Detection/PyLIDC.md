@@ -5,7 +5,7 @@
 
 This file mainly focuses on the important details regarding the pylidc package which plays an important role within the feature extraction and exploration of the Project. Therefore, it is essencial to analyse the package API in order to improve the project robustness.
 
-The [PyLIDC](https://pylidc.github.io/index.html) package is mainly composed by two classes:
+The [PyLIDC](https://pylidc.github.io/index.html) package is mainly composed by the following classes:
 
 - Scan Class
 - Annotation Class
