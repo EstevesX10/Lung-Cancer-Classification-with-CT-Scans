@@ -1120,7 +1120,202 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
 
 ### [Annotation Class] Code Snippets
 
-> ADD CODE SNIPPETS
+<div align="right">
+
+> Short usage example for the Annotation class
+</div>
+
+```python
+import pylidc as pl
+
+# Get the first annotation with spiculation value greater than 3.
+ann = pl.query(pl.Annotation)\
+        .filter(pl.Annotation.spiculation > 3).first()
+
+print(ann.spiculation)
+# => 4
+
+# Each nodule feature has a corresponding property
+# to print the semantic value.
+print(ann.Spiculation)
+# => Medium-High Spiculation
+
+ann = anns.first()
+print("%.2f, %.2f, %.2f" % (ann.diameter,
+                            ann.surface_area,
+                            ann.volume))
+# => 17.98, 1221.40, 1033.70
+```
+
+
+<div align="right">
+
+> Illustration of the various pad argument types
+</div>
+
+```python
+import pylidc as pl
+
+ann = pl.query(pl.Annotation).first()
+vol = ann.scan.to_volume()
+
+print ann.bbox()
+# => (slice(151, 185, None), slice(349, 376, None), slice(44, 50, None))
+
+print(vol[ann.bbox()].shape)
+# => (34, 27, 6)
+
+print(vol[ann.bbox(pad=2)].shape)
+# => (38, 31, 10)
+
+print(vol[ann.bbox(pad=[(1,2), (3,0), (2,4)])].shape)
+# => (37, 30, 12)
+
+print(max(ann.bbox_dims()))
+# => 21.45
+
+print(vol[ann.bbox(pad=30.0)].shape)
+# => (48, 49, 12)
+
+print(ann.bbox_dims(pad=30.0))
+# => [30.55, 31.200000000000003, 33.0]
+```
+
+<div align="right">
+
+> Comparison between the bounding box volume vs the nodule volume
+</div>
+
+```python
+import pylidc as pl
+
+ann = pl.query(pl.Annotation).first()
+
+print("%.2f mm^3, %.2f mm^3" % (ann.volume,
+                                np.prod(ann.bbox_dims())))
+# => 2439.30 mm^3, 5437.58 mm^3
+```
+
+<div align="right">
+
+> Difference between bbox and bbox_matrix
+</div>
+
+```python
+import pylidc as pl
+ann = pl.query(pl.Annotation).first()
+
+bb = ann.bbox()
+bm = ann.bbox_matrix()
+
+print(all([bm[i,0] == bb[i].start for i in range(3)]))
+# => True
+
+print(all([bm[i,1]+1 == bb[i].stop for i in range(3)]))
+# => True
+```
+
+<div align="right">
+
+> Usage of boolean_mask
+</div>
+
+```python
+import pylidc as pl
+import matplotlib.pyplot as plt
+
+ann = pl.query(pl.Annotation).first()
+vol = ann.scan.to_volume()
+
+mask = ann.boolean_mask()
+bbox = ann.bbox()
+
+print("Avg HU inside nodule: %.1f" % vol[bbox][mask].mean())
+# => Avg HU inside nodule: -280.0
+
+print("Avg HU outside nodule: %.1f" % vol[bbox][~mask].mean())
+# => Avg HU outside nodule: -732.2
+```
+
+<div align="right">
+
+> Plot the centroid on a CT image slice
+</div>
+
+```python
+import pylidc as pl
+import matplotlib.pyplot as plt
+
+ann = pl.query(pl.Annotation).first()
+i,j,k = ann.centroid
+
+vol = ann.scan.to_volume()
+
+plt.imshow(vol[:,:,int(k)], cmap=plt.cm.gray)
+plt.plot(j, i, '.r', label="Nodule centroid")
+plt.legend()
+plt.show()
+```
+
+<div align="right">
+
+> Clarification example of the contour_slice_indices method
+</div>
+
+```python
+import pylidc as pl
+
+ann = pl.query(pl.Annotation)
+
+zvals = ann.contour_slice_zvals
+kvals = ann.contour_slice_indices
+scan_zvals = ann.scan.slice_zvals
+
+for k,z in zip(kvals, zvals):
+    # the two z values should the same (up to machine precision)
+    print(k, z, scan_zvals[k])
+```
+
+<div align="right">
+
+> Usage example of the uniform_cubic_resample method
+</div>
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+import pylidc as pl
+
+ann = pl.query(pl.Annotation).first()
+
+# resampled volumes will have uniform side length of 70mm and
+# uniform voxel spacing of 1mm.
+n = 70
+vol,mask = ann.uniform_cubic_resample(n)
+
+# Setup the plot.
+img = plt.imshow(np.zeros((n+1, n+1)),
+                 vmin=vol.min(), vmax=vol.max(),
+                 cmap=plt.cm.gray)
+
+
+# View all the resampled image volume slices.
+for i in range(n+1):
+    img.set_data(vol[:,:,i] * (mask[:,:,i]*0.6+0.2))
+
+    plt.title("%02d / %02d" % (i+1, n))
+    plt.pause(0.1)
+```
+
+<div align="right">
+
+> Visualize in 3d a triangulation of the nodule’s surface
+</div>
+
+```python
+ann = pl.query(pl.Annotation).first()
+ann.visualize_in_3d(edgecolor='green', cmap='autumn')
+```
 
 ## Contour Class
 
