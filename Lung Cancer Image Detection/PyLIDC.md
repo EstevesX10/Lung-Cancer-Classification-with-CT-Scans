@@ -11,6 +11,10 @@ The [PyLIDC](https://pylidc.github.io/index.html) package is mainly composed by 
 - Annotation Class
 - Contour Class
 
+## Index
+
+> ADD INDEX FOR THE PAGE
+
 ## Scan Class
 
 > The Scan model class refers to the top-level XML file from the LIDC. A scan has many pylidc.Annotation objects, which correspond to the unblindedReadNodule XML attributes for the scan.
@@ -1003,6 +1007,58 @@ According to the Documentation an instance of [Contour](https://pylidc.github.io
     <td width="75%">
         <div align="center">
             Similar to Contour.image_z_position, but returns the index instead of the z coordinate value
+        </div>
+    </td>
+  </tr>
+</table>
+
+### [Contour Class] Methods
+
+According to the Documentation an instance of [Contour](https://pylidc.github.io/contour.html) contains the following Method:
+
+<table width="100%" border="1" cellpadding="5">
+  <tr>
+    <th colspan="3" height="100%">
+        <div align="center">
+            Contour Class Method
+        </div>
+    </th>
+  </tr>
+
+  <tr>
+    <td width="15%">
+        <div align="center">
+        <b>Method</b>
+        </div>
+    </td>
+    <td width="55%">
+        <div align="center">
+        <b>Arguments</b>
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">
+        <b>Description</b>
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="15%">
+        <div align="center">
+        <b>to_matrix</b>
+        </div>
+    </td>
+    <td width="55%">
+        <div align="center">
+            include_k (bool, default = True)
+            <br/>
+            Set include_k = False to omit the k axis coordinate.
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">
+            Return the contour-annotation coordinates as a matrix where each row contains an (i,j,k) index coordinate into the image volume.
         </div>
     </td>
   </tr>
