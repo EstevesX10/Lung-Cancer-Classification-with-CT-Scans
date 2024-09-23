@@ -229,7 +229,57 @@ According to the Documentation an instance of the [Scan](https://pylidc.github.i
         </div>
     </td>
   </tr>
+
+  <tr>
+    <td width="15%">
+        <div align="center">
+        <b>slice_spacing</b>
+        </div>
+    </td>
+    <td width="5%">
+        <div align="center">
+            float
+        </div>
+    </td>
+    <td width="75%">
+        <div align="center">
+            This computes the median of the difference between the slice coordinates
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="15%">
+        <div align="center">
+        <b>slice_zvals</b>
+        </div>
+    </td>
+    <td width="5%">
+        <div align="center">
+            ndarray
+        </div>
+    </td>
+    <td width="75%">
+        <div align="center">
+            The “z-values” for the slices of the scan (i.e., the last coordinate of the ImagePositionPatient DICOM attribute) as a NumPy array sorted in increasing order
+        </div>
+    </td>
+  </tr>
 </table>
+
+### [Scan Class] Methods
+
+According to the Documentation an instance of the [Scan](https://pylidc.github.io/scan.html) contains the following Methods:
+
+### [Scan Class] Code Snippets
+
+<div align="right">
+
+> xxxx
+</div>
+
+```python
+```
 
 ## Annotation Class
 
