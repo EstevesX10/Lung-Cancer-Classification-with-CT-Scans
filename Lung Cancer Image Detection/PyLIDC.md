@@ -15,6 +15,8 @@ The [PyLIDC](https://pylidc.github.io/index.html) package is mainly composed by 
 
 > The Scan model class refers to the top-level XML file from the LIDC. A scan has many pylidc.Annotation objects, which correspond to the unblindedReadNodule XML attributes for the scan.
 
+### [Scan Class] Attributes
+
 According to the Documentation an instance of the [Scan](https://pylidc.github.io/scan.html) contains the following attributes:
 
 <table width="100%" border="1" cellpadding="5">
@@ -228,6 +230,8 @@ According to the Documentation an instance of the [Scan](https://pylidc.github.i
 ## Annotation Class
 
 > The Nodule model class holds the information from a single physicians annotation of a nodule >= 3mm class with a particular scan. A nodule has many contours, each of which refers to the contour drawn for nodule in each scan slice.
+
+### [Annotation Class] Attributes
 
 According to the Documentation an instance of [Annotation](https://pylidc.github.io/annotation.html) contains the following attributes:
 
@@ -881,6 +885,8 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
 
 > The Contour class holds the nodule boundary coordinate data of a pylidc.Annotation object for a single slice in the CT volume.
 
+### [Contour Class] Attributes
+
 According to the Documentation an instance of [Contour](https://pylidc.github.io/contour.html) contains the following attributes:
 
 
@@ -1001,3 +1007,28 @@ According to the Documentation an instance of [Contour](https://pylidc.github.io
     </td>
   </tr>
 </table>
+
+### [Contour Class] Code Snippets
+
+<div align="right">
+
+> Plot a contour on top of the image volume
+</div>
+
+```python 
+import pylidc as pl
+import matplotlib.pyplot as plt
+
+ann = pl.query(pl.Annotation).first()
+vol = ann.scan.to_volume()
+con = ann.contours[3]
+
+k = con.image_k_position
+ii,jj = ann.contours[3].to_matrix(include_k=False).T
+
+plt.imshow(vol[:,:,46], cmap=plt.cm.gray)
+plt.plot(jj, ii, '-r', lw=1, label="Nodule Boundary")
+plt.legend()
+plt.show()
+```
+
