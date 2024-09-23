@@ -288,23 +288,43 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
             <table>
                 <tr>
                     <td>1</td>
-                    <td>Extremely Subtle</td>
+                    <td>
+                        <div align="center">
+                            Extremely Subtle
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>Moderately Subtle</td>
+                    <td>
+                        <div align="center">
+                            Moderately Subtle
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>3</td>
-                    <td>Fairly Subtle</td>
+                    <td>
+                        <div align="center">
+                            Fairly Subtle
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>4</td>
-                    <td>Moderately Obvious</td>
+                    <td>
+                        <div align="center">
+                            Moderately Obvious
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td>Obvious</td>
+                    <td>
+                        <div align="center">
+                            Obvious
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -335,23 +355,43 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
             <table>
                 <tr>
                     <td>1</td>
-                    <td>Soft Tissue</td>
+                    <td>
+                        <div align="center">
+                            Soft Tissue
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>Fluid</td>
+                    <td>
+                        <div align="center">
+                            Fluid
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>3</td>
-                    <td>Fat</td>
+                    <td>
+                        <div align="center">
+                            Fat
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>4</td>
-                    <td>Moderately Obvious</td>
+                    <td>
+                        <div align="center">
+                            Moderately Obvious
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td>Air</td>
+                    <td>
+                        <div align="center">
+                            Air
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -382,27 +422,51 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
             <table>
                 <tr>
                     <td>1</td>
-                    <td>Popcorn</td>
+                    <td>
+                        <div align="center">
+                            Popcorn
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>Laminated</td>
+                    <td>
+                        <div align="center">
+                            Laminated
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>3</td>
-                    <td>Solid</td>
+                    <td>
+                        <div align="center">
+                            Solid
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>4</td>
-                    <td>Non-central</td>
+                    <td>
+                        <div align="center">
+                            Non-central
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td>Central</td>
+                    <td>
+                        <div align="center">
+                            Central
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>6</td>
-                    <td>Absent</td>
+                    <td>
+                        <div align="center">
+                            Absent
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -433,23 +497,43 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
             <table>
                 <tr>
                     <td>1</td>
-                    <td>Linear</td>
+                    <td>
+                        <div align="center">
+                            Linear
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>Ovoid/Linear</td>
+                    <td>
+                        <div align="center">
+                            Ovoid/Linear
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>3</td>
-                    <td>Ovoid</td>
+                    <td>
+                        <div align="center">
+                            Ovoid
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>4</td>
-                    <td>Ovoid/Round</td>
+                    <td>
+                        <div align="center">
+                            Ovoid/Round
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td>Round</td>
+                    <td>
+                        <div align="center">
+                            Round
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -480,23 +564,43 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
             <table>
                 <tr>
                     <td>1</td>
-                    <td>Poorly Defined</td>
+                    <td>
+                        <div align="center">
+                            Poorly Defined
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>Near Poorly Defined</td>
+                    <td>
+                        <div align="center">
+                            Near Poorly Defined
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>3</td>
-                    <td>Medium Margin</td>
+                    <td>
+                        <div align="center">
+                            Medium Margin
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>4</td>
-                    <td>Near Sharp</td>
+                    <td>
+                        <div align="center">
+                            Near Sharp
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td>Sharp</td>
+                    <td>
+                        <div align="center">
+                            Sharp
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -527,23 +631,43 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
             <table>
                 <tr>
                     <td>1</td>
-                    <td>No Lobulation</td>
+                    <td>
+                        <div align="center">
+                            No Lobulation
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>Nearly No Lobulation</td>
+                    <td>
+                        <div align="center">
+                            Nearly No Lobulation
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>3</td>
-                    <td>Medium Lobulation</td>
+                    <td>
+                        <div align="center">
+                            Medium Lobulation
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>4</td>
-                    <td>Near Marked Lobulation</td>
+                    <td>
+                        <div align="center">
+                            Near Marked Lobulation
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td>Marked Lobulation</td>
+                    <td>
+                        <div align="center">
+                            Marked Lobulation
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -574,23 +698,43 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
             <table>
                 <tr>
                     <td>1</td>
-                    <td>No Spiculation</td>
+                    <td>
+                        <div align="center">
+                            No Spiculation
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>Nearly No Spiculation</td>
+                    <td>
+                        <div align="center">
+                            Nearly No Spiculation
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>3</td>
-                    <td>Medium Spiculation</td>
+                    <td>
+                        <div align="center">
+                            Medium Spiculation
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>4</td>
-                    <td>Near Marked Spiculation</td>
+                    <td>
+                        <div align="center">
+                            Near Marked Spiculation
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td>Marked Spiculation</td>
+                    <td>
+                        <div align="center">
+                            Marked Spiculation
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -621,23 +765,43 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
             <table>
                 <tr>
                     <td>1</td>
-                    <td>Non-Solid/GGO</td>
+                    <td>
+                        <div align="center">
+                            Non-Solid/GGO
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>Non-Solid/Mixed</td>
+                    <td>
+                        <div align="center">
+                            Non-Solid/Mixed
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>3</td>
-                    <td>Part Solid/Mixed</td>
+                    <td>
+                        <div align="center">
+                            Part Solid/Mixed
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>4</td>
-                    <td>Solid/Mixed</td>
+                    <td>
+                        <div align="center">
+                            Solid/Mixed
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td>Solid</td>
+                    <td>
+                        <div align="center">
+                            Solid
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -668,19 +832,35 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
             <table textalign="center">
                 <tr>
                     <td>1</td>
-                    <td>Highly Unlikely</td>
+                    <td>
+                        <div align="center">
+                            Highly Unlikely
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>Moderately Unlikely</td>
+                    <td>
+                        <div align="center">
+                            Moderately Unlikely
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>3</td>
-                    <td>Indeterminate</td>
+                    <td>
+                        <div align="center">
+                            Indeterminate
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>4</td>
-                    <td>Moderately Suspicious</td>
+                    <td>
+                        <div align="center">
+                            Moderately Suspicious
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>5</td>
