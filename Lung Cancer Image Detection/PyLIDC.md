@@ -280,11 +280,12 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     </td>
     <td width="60%">
         <div align="center">
+            <br/>
             Difficulty of detection.
             <br/>
             Higher values indicate easier detection.
             <br/><br/>
-            <table style="text-align:center">
+            <table>
                 <tr>
                     <td>1</td>
                     <td>Extremely Subtle</td>
@@ -369,7 +370,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     </td>
     <td width="30%">
         <div align="center">
-            &in; &lbrace;1, 2, 3, 4, 5, 6 &rbrace;
+            &in; &lbrace;1, 2, 3, 4, 5, 6&rbrace;
         </div>
     </td>
     <td width="60%">
