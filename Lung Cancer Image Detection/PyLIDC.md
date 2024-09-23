@@ -329,6 +329,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     </td>
     <td width="60%">
         <div align="center">
+            <br/>
             Internal composition of the nodule.
             <br/><br/>
             <table>
@@ -375,6 +376,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     </td>
     <td width="60%">
         <div align="center">
+            <br/>
             Pattern of calcification, if present.
             <br/><br/>
             <table>
@@ -425,6 +427,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     </td>
     <td width="60%">
         <div align="center">
+            <br/>
             The three-dimensional shape of the nodule in terms of its roundness.
             <br/><br/>
             <table>
@@ -471,6 +474,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     </td>
     <td width="60%">
         <div align="center">
+            <br/>
             Description of how well-defined the nodule margin is.
             <br/><br/>
             <table>
@@ -517,6 +521,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     </td>
     <td width="60%">
         <div align="center">
+            <br/>
             The degree of lobulation ranging from none to marked.
             <br/><br/>
             <table>
@@ -563,6 +568,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     </td>
     <td width="60%">
         <div align="center">
+            <br/>
             The extent of spiculation present.
             <br/><br/>
             <table>
@@ -609,6 +615,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     </td>
     <td width="60%">
         <div align="center">
+            <br/>
             Radiographic solidity: internal texture (solid, ground glass, or mixed). 
             <br/><br/>
             <table>
@@ -655,6 +662,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     </td>
     <td width="60%">
         <div align="center">
+            <br/>
             Subjective assessment of the likelihood of malignancy, assuming the scan originated from a 60-year-old male smoker.
             <br/><br/>
             <table textalign="center">
