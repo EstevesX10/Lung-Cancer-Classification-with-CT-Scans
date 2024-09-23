@@ -11,9 +11,24 @@ The [PyLIDC](https://pylidc.github.io/index.html) package is mainly composed by 
 - Annotation Class
 - Contour Class
 
-## Index
+## Documentation Index
 
-> ADD INDEX FOR THE PAGE
+Below is a simple index to help you navigate through the package documentation:
+
+### 📁 [Scan Class](#scan-class)
+- 📋 [Attributes](#scan-class-attributes)
+- ⚙️ [Methods](#scan-class-methods)
+- 💡 [Code Snippets](#scan-class-code-snippets)
+
+### 📁 [Annotation Class](#annotation-class)
+- 📋 [Attributes](#annotation-class-attributes)
+- ⚙️ [Methods](#annotation-class-methods)
+- 💡 [Code Snippets](#annotation-class-code-snippets)
+
+### 📁 [Contour Class](#contour-class)
+- 📋 [Attributes](#contour-class-attributes)
+- ⚙️ [Methods](#contour-class-methods)
+- 💡 [Code Snippets](#contour-class-code-snippets)
 
 ## Scan Class
 
