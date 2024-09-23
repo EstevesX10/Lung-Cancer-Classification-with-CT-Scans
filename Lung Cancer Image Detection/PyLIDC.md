@@ -271,14 +271,229 @@ According to the Documentation an instance of the [Scan](https://pylidc.github.i
 
 According to the Documentation an instance of the [Scan](https://pylidc.github.io/scan.html) contains the following Methods:
 
+<table width="100%" border="1" cellpadding="5">
+  <tr>
+    <th colspan="3" height="100%">
+        <div align="center">
+            Scan Class Methods
+        </div>
+    </th>
+  </tr>
+  
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>Method</b>
+        </div>
+    </td>
+    <td width="65%">
+        <div align="center">
+        <b>Arguments</b>
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">
+        <b>Returns</b>
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>cluster_annotations</b>
+        </div>
+    </td>
+    <td width="65%">
+        <div align="center">
+            <b>metric</b><br/>(string or callable, default 'min')
+            <br/><br/>
+            If string, checks for available metrics. If callable, the provided function, should take two Annotation objects and return a float
+            <hr/>
+            <b>tol</b><br/>(float, default=None)
+            <br/><br/>
+            A distance in millimeters. Annotations are grouped when the minimum distance between their boundary contour points is less than tol
+            <hr/>
+            <b>factor</b><br/>(float, default=0.9)
+            <br/><br/>
+            If tol resulted in any group of annotations with more than 4 Annotations, then tol is multiplied by factor and the grouping is performed again
+            <hr/>
+            <b>min_tol</b><br/>(float, default=0.1)
+            <br/><br/>
+            If tol is reduced below min_tol (see the factor parameter), then the routine exits because we conclude that the annotation groups cannot be automatically reduced to have groups with each group having Annotations<=4
+            <hr/>
+            <b>return_distance_matrix</b><br/>(bool, default False)
+            <br/><br/>
+            Optionally return the distance matrix that was used to produce the clusters
+            <hr/>
+            <b>verbose </b><br/>(bool, default False)
+            <br/><br/>
+            If True, a warning message is printed when tol < min_tol occurs
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">
+            Estimate which annotations refer to the same physical nodule in the CT scan. This method clusters all nodule Annotations for a Scan by computing a distance measure between the annotations [Returns a list of lists]
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>get_path_to_dicom_files</b>
+        </div>
+    </td>
+    <td width="65%">
+        <div align="center">
+        None
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">
+            Get the path to where the DICOM files are stored for this scan, relative to the root path set in the pylidc configuration file
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>load_all_dicom_images</b>
+        </div>
+    </td>
+    <td width="65%">
+        <div align="center">
+            <b>verbose</b><br/>(bool)
+            <br/><br/>
+            Turn the loading method on/off
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">
+            Get the path to where the DICOM files are stored for this scan, relative to the root path set in the pylidc configuration file
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>to_volume</b>
+        </div>
+    </td>
+    <td width="65%">
+        <div align="center">
+            <b>verbose</b><br/>(bool)
+            <br/><br/>
+            Turn the loading method on/off
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">
+            Return the scan as a 3D numpy array volume
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>visualize</b>
+        </div>
+    </td>
+    <td width="65%">
+        <div align="center">
+            <b>annotation_groups</b><br/>(list of lists of Annotation objects, default=None)
+            <br/><br/>
+            This argument should be supplied by the returned object from the cluster_annotations method
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">
+            Visualize the scan
+        </div>
+    </td>
+  </tr>
+</table>
+
 ### [Scan Class] Code Snippets
 
 <div align="right">
 
-> xxxx
+> Usage example of the Scan class
 </div>
 
 ```python
+import pylidc as pl
+
+scans = pl.query(pl.Scan).filter(pl.Scan.slice_thickness <= 1)
+print(scans.count())
+# => 97
+
+scan = scans.first()
+print(scan.patient_id,
+      scan.pixel_spacing,
+      scan.slice_thickness,
+      scan.slice_spacing)
+# => LIDC-IDRI-0066, 0.63671875, 0.6, 0.5
+
+print(len(scan.annotations))
+# => 11
+```
+
+<div align="right">
+
+> cluster_annotations usage example
+</div>
+
+```python
+import pylidc as pl
+
+scan = pl.query(pl.Scan).first()
+nodules = scan.cluster_annotations()
+
+print("This can has %d nodules." % len(nodules))
+# => This can has 4 nodules.
+
+for i,nod in enumerate(nodules):
+    print("Nodule %d has %d annotations." % (i+1,len(nod)))
+# => Nodule 1 has 4 annotations.
+# => Nodule 2 has 4 annotations.
+# => Nodule 3 has 1 annotations.
+# => Nodule 4 has 4 annotations.
+```
+
+<div align="right">
+
+> load_all_dicom_images usage example
+</div>
+
+```python
+import pylidc as pl
+import matplotlib.pyplot as plt
+
+scan = pl.query(pl.Scan).first()
+
+images = scan.load_all_dicom_images()
+zs = [float(img.ImagePositionPatient[2]) for img in images]
+print(zs[1] - zs[0], img.SliceThickness, scan.slice_thickness)
+
+plt.imshow( images[0].pixel_array, cmap=plt.cm.gray )
+plt.show()
+```
+<div align="right">
+
+> Visualize the scan
+</div>
+
+```python
+import pylidc as pl
+
+scan = pl.query(pl.Scan).first()
+nodules = scan.cluster_annotations()
+
+scan.visualize(annotation_groups=nodules)
 ```
 
 ## Annotation Class
