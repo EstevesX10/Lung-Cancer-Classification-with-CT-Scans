@@ -284,7 +284,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
             <br/>
             Higher values indicate easier detection.
             <br/><br/>
-            <table align="center">
+            <table style="text-align:center">
                 <tr>
                     <td>1</td>
                     <td>Extremely Subtle</td>
@@ -330,7 +330,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
         <div align="center">
             Internal composition of the nodule.
             <br/><br/>
-            <table align="center">
+            <table>
                 <tr>
                     <td>1</td>
                     <td>Soft Tissue</td>
@@ -376,7 +376,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
         <div align="center">
             Pattern of calcification, if present.
             <br/><br/>
-            <table align="center">
+            <table>
                 <tr>
                     <td>1</td>
                     <td>Popcorn</td>
@@ -426,7 +426,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
         <div align="center">
             The three-dimensional shape of the nodule in terms of its roundness.
             <br/><br/>
-            <table align="center">
+            <table>
                 <tr>
                     <td>1</td>
                     <td>Linear</td>
@@ -472,7 +472,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
         <div align="center">
             Description of how well-defined the nodule margin is.
             <br/><br/>
-            <table align="center">
+            <table>
                 <tr>
                     <td>1</td>
                     <td>Poorly Defined</td>
@@ -518,7 +518,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
         <div align="center">
             The degree of lobulation ranging from none to marked.
             <br/><br/>
-            <table align="center">
+            <table>
                 <tr>
                     <td>1</td>
                     <td>No Lobulation</td>
@@ -564,7 +564,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
         <div align="center">
             The extent of spiculation present.
             <br/><br/>
-            <table align="center">
+            <table>
                 <tr>
                     <td>1</td>
                     <td>No Spiculation</td>
@@ -610,7 +610,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
         <div align="center">
             Radiographic solidity: internal texture (solid, ground glass, or mixed). 
             <br/><br/>
-            <table align="center">
+            <table>
                 <tr>
                     <td>1</td>
                     <td>Non-Solid/GGO</td>
@@ -656,7 +656,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
         <div align="center">
             Subjective assessment of the likelihood of malignancy, assuming the scan originated from a 60-year-old male smoker.
             <br/><br/>
-            <table align="center">
+            <table textalign="center">
                 <tr>
                     <td>1</td>
                     <td>Highly Unlikely</td>
