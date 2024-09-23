@@ -21,7 +21,7 @@ The [PyLIDC](https://pylidc.github.io/index.html) package is mainly composed by 
 
 ### [Scan Class] Attributes
 
-According to the Documentation an instance of the [Scan](https://pylidc.github.io/scan.html) contains the following attributes:
+According to the Documentation an instance of the [Scan](https://pylidc.github.io/scan.html) contains the following Attributes:
 
 <table width="100%" border="1" cellpadding="5">
   <tr>
@@ -237,7 +237,7 @@ According to the Documentation an instance of the [Scan](https://pylidc.github.i
 
 ### [Annotation Class] Attributes
 
-According to the Documentation an instance of [Annotation](https://pylidc.github.io/annotation.html) contains the following attributes:
+According to the Documentation an instance of [Annotation](https://pylidc.github.io/annotation.html) contains the following Attributes:
 
 <table width="100%" border="1" cellpadding="5">
   <tr>
@@ -275,11 +275,15 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     <td width="5%">
         <div align="center">
         <b>subtlety</b>
+        <br/><br/>
+        <b>Subtlety</b>
         </div>
     </td>
     <td width="5%">
         <div align="center">
             Integer
+            <br/><br/>
+            String
         </div>
     </td>
     <td width="30%">
@@ -344,11 +348,15 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     <td width="5%">
         <div align="center">
         <b>internalStructure</b>
+        <br/><br/>
+        <b>InternalStructure</b>
         </div>
     </td>
     <td width="5%">
         <div align="center">
             Integer
+            <br/><br/>
+            String
         </div>
     </td>
     <td width="30%">
@@ -411,11 +419,15 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     <td width="5%">
         <div align="center">
         <b>calcification</b>
+        <br/><br/>
+        <b>Calcification</b>
         </div>
     </td>
     <td width="5%">
         <div align="center">
             Integer
+            <br/><br/>
+            String
         </div>
     </td>
     <td width="30%">
@@ -486,11 +498,15 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     <td width="5%">
         <div align="center">
         <b>sphericity</b>
+        <br/><br/>
+        <b>Sphericity</b>
         </div>
     </td>
     <td width="5%">
         <div align="center">
             Integer
+            <br/><br/>
+            String
         </div>
     </td>
     <td width="30%">
@@ -553,11 +569,15 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     <td width="5%">
         <div align="center">
         <b>margin</b>
+        <br/><br/>
+        <b>Margin</b>
         </div>
     </td>
     <td width="5%">
         <div align="center">
             Integer
+            <br/><br/>
+            String
         </div>
     </td>
     <td width="30%">
@@ -620,11 +640,15 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     <td width="5%">
         <div align="center">
         <b>lobulation</b>
+        <br/><br/>
+        <b>Lobulation</b>
         </div>
     </td>
     <td width="5%">
         <div align="center">
             Integer
+            <br/><br/>
+            String
         </div>
     </td>
     <td width="30%">
@@ -687,11 +711,15 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     <td width="5%">
         <div align="center">
         <b>spiculation</b>
+        <br/><br/>
+        <b>Spiculation</b>
         </div>
     </td>
     <td width="5%">
         <div align="center">
             Integer
+            <br/><br/>
+            String
         </div>
     </td>
     <td width="30%">
@@ -754,11 +782,15 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     <td width="5%">
         <div align="center">
         <b>texture</b>
+        <br/><br/>
+        <b>Texture</b>
         </div>
     </td>
     <td width="5%">
         <div align="center">
             Integer
+            <br/><br/>
+            String
         </div>
     </td>
     <td width="30%">
@@ -821,11 +853,15 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
     <td width="5%">
         <div align="center">
         <b>malignancy</b>
+        <br/><br/>
+        <b>Malignancy</b>
         </div>
     </td>
     <td width="5%">
         <div align="center">
             Integer
+            <br/><br/>
+            String
         </div>
     </td>
     <td width="30%">
@@ -883,7 +919,208 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
         </div>
     </td>
   </tr>
+  
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>centroid</b>
+        </div>
+    </td>
+    <td width="5%">
+        <div align="center">
+            ndarray, shape=(3,)
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">-</div>
+    </td>
+    <td width="60%">
+        <div align="center">
+            The center of mass of the nodule as determined by its radiologist-drawn contours.
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>contour_slice_indices</b>
+        </div>
+    </td>
+    <td width="5%">
+        <div align="center">
+            ndarray
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">-</div>
+    </td>
+    <td width="60%">
+        <div align="center">
+            Array of indices from the scan where each contour belongs.
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>contour_slice_zvals</b>
+        </div>
+    </td>
+    <td width="5%">
+        <div align="center">
+            ndarray
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">-</div>
+    </td>
+    <td width="60%">
+        <div align="center">
+            Array of unique z-coordinates for the contours
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>contours_matrix</b>
+        </div>
+    </td>
+    <td width="5%">
+        <div align="center">
+            ndarray
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">-</div>
+    </td>
+    <td width="60%">
+        <div align="center">
+            All the contour index values inside a 3D numpy array
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>diameter</b>
+        </div>
+    </td>
+    <td width="5%">
+        <div align="center">
+            float
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">-</div>
+    </td>
+    <td width="60%">
+        <div align="center">
+            The maximal diameter as float, accounting for the axial-plane resolution of the scan. The units are mm
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>surface_area</b>
+        </div>
+    </td>
+    <td width="5%">
+        <div align="center">
+            float
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">-</div>
+    </td>
+    <td width="60%">
+        <div align="center">
+            Estimate the surface area by summing the areas of a trianglation of the nodules surface in 3d. The estimated surface area in squared millimeters.
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="5%">
+        <div align="center">
+        <b>volume</b>
+        </div>
+    </td>
+    <td width="5%">
+        <div align="center">
+            float
+        </div>
+    </td>
+    <td width="30%">
+        <div align="center">-</div>
+    </td>
+    <td width="60%">
+        <div align="center">
+            The estimated 3D volume of the annotated nodule. Units are cubic millimeters
+        </div>
+    </td>
+  </tr>
 </table>
+
+### [Annotation Class] Methods
+
+According to the Documentation an instance of [Annotation](https://pylidc.github.io/annotation.html) contains the following Methods:
+
+<table width="100%" border="1" cellpadding="5">
+  <tr>
+    <th colspan="3" height="100%">
+        <div align="center">
+            Annotation Class Methods
+        </div>
+    </th>
+  </tr>
+  
+  <tr>
+    <td width="15%">
+        <div align="center">
+        <b>Parameter</b>
+        </div>
+    </td>
+    <td width="5%">
+        <div align="center">
+        <b>Type</b>
+        </div>
+    </td>
+    <td width="75%">
+        <div align="center">
+        <b>Description</b>
+        </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="15%">
+        <div align="center">
+        <b>inclusion</b>
+        </div>
+    </td>
+    <td width="5%">
+        <div align="center">
+            bool
+        </div>
+    </td>
+    <td width="75%">
+        <div align="center">
+            If True, the area inside the contour is included as part of the nodule. If False, the area inside the contour is excluded from the nodule
+        </div>
+    </td>
+  </tr>
+ </table>
+
+### [Annotation Class] Code Snippets
+
+> ADD CODE SNIPPETS
 
 ## Contour Class
 
@@ -891,8 +1128,7 @@ According to the Documentation an instance of [Annotation](https://pylidc.github
 
 ### [Contour Class] Attributes
 
-According to the Documentation an instance of [Contour](https://pylidc.github.io/contour.html) contains the following attributes:
-
+According to the Documentation an instance of [Contour](https://pylidc.github.io/contour.html) contains the following Attributes:
 
 <table width="100%" border="1" cellpadding="5">
   <tr>
