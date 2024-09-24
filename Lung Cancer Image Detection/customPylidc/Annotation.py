@@ -742,7 +742,7 @@ class Annotation(Base):
             raise ValueError("backend should be in %s." % viz3dbackends)
 
         if backend == 'matplotlib':
-            if cmap not in plt.cm.cmap_d.keys():
+            if cmap not in plt.colormaps():
                 raise ValueError("Invalid `cmap`. See `plt.cm.cmap_d.keys()`.")
 
         # Pad to cap the ends for masks that hit the edge.
@@ -758,10 +758,12 @@ class Annotation(Base):
             fig = plt.figure(figsize=figsize)
             ax = fig.add_subplot(111, projection='3d')
 
+            cmap_obj = plt.get_cmap(cmap)
+
             t = np.linspace(0, 1, faces.shape[0])
             mesh = Poly3DCollection(verts[faces], 
                                     edgecolor=edgecolor,
-                                    facecolors=plt.cm.cmap_d[cmap](t))
+                                    facecolors=cmap_obj (t))
             ax.add_collection3d(mesh)
 
             ceil = max(self.bbox_dims(pad=[(1,1), (1,1), (1,1)]))
@@ -776,6 +778,8 @@ class Annotation(Base):
             ax.set_zlim(0, ceil)
             ax.set_zlabel('length (mm)')
 
+            ax.set_title("3D Nodule Scan", fontsize=15)
+
             plt.tight_layout()
             plt.show()
         elif backend == 'mayavi':
@@ -787,7 +791,6 @@ class Annotation(Base):
                 mlab.show()
             except ImportError:
                 print("Mayavi could not be imported. Is it installed?")
-
 
     def visualize_in_scan(self, verbose=True):
         """
