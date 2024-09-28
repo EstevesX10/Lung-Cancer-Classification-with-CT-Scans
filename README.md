@@ -43,7 +43,7 @@ Therefore, for more informations regarding the **Virtual Environment** used in A
 
 ## Authorship
 
-- **Authors** &#8594; [Gonçalo Esteves](https://github.com/EstevesX10) and [Nuno Gomes](https://github.com/NightF0x26)
+- **Authors** &#8594; [Francisco Macieira](https://github.com/franciscovmacieira), [Gonçalo Esteves](https://github.com/EstevesX10) and [Nuno Gomes](https://github.com/NightF0x26)
 - **Course** &#8594; Laboratory AI and DS [CC3044]
 - **University** &#8594; Faculty of Sciences, University of Porto
  
