@@ -41,6 +41,10 @@ As a request from our professors this project was developed using a `Notebook`. 
 
 Therefore, for more informations regarding the **Virtual Environment** used in Anaconda, consider checking the [DEPENDENCIES.md](https://github.com/EstevesX10/_INSERT_REPO_NAME_/blob/main/DEPENDENCIES.md) file.
 
+## Link for the Datasets
+
+The datasets used are available [here](https://drive.google.com/drive/folders/1zXXfqNuPhxtYRSrzgQ07vWcszMcrkbw-?usp=sharing).
+
 ## Authorship
 
 - **Authors** &#8594; [Francisco Macieira](https://github.com/franciscovmacieira), [Gonçalo Esteves](https://github.com/EstevesX10) and [Nuno Gomes](https://github.com/NightF0x26)
