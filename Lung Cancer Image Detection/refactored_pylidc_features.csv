@@ -1,4 +1,4 @@
-nodule_id,patient_id,slice_thickness,pixel_spacing,subtlety,internalStructure,calcification,sphericity,margin,lobulation,spiculation,texture,diameter,surface_area,volume,malignancy
+annotation_id,patient_id,slice_thickness,pixel_spacing,subtlety,internalStructure,calcification,sphericity,margin,lobulation,spiculation,texture,diameter,surface_area,volume,malignancy
 LIDC-IDRI-0001-1,LIDC-IDRI-0001,2.5,0.7,5,1,6,3,3,3,4,5,32.20588825480909,2801.428430573194,7869.3695068359375,5
 LIDC-IDRI-0001-2,LIDC-IDRI-0001,2.5,0.7,5,1,6,4,4,5,5,5,33.18869171589172,2198.454852008781,6146.4385986328125,5
 LIDC-IDRI-0001-3,LIDC-IDRI-0001,2.5,0.7,5,1,6,3,2,3,3,5,31.95933237383488,2392.704187643274,6594.474792480469,5
