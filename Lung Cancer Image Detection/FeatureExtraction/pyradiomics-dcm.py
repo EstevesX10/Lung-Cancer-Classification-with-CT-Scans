@@ -491,13 +491,12 @@ Support for DICOM Radiotherapy Structure Sets for defining region of interest ma
     # edits - b
     featuresFileName = os.path.join(featuresDir, 'pyradiomics_features.csv')
     scriptlogger.debug("Will save features as %s", featuresFileName)
-    # writer = csv.writer(open(featuresFileName, 'a'), lineterminator='\n')
     headers = list(featureVector.keys())
     if not os.path.exists(featuresFileName):
       with open(featuresFileName, "w") as trash:
         pass
       writer = csv.writer(open(featuresFileName, 'w'), lineterminator='\n')
-      writer.writerow(['Nodule_Id'] + headers)
+      writer.writerow(['nodule_Id'] + headers)
     else:
       writer = csv.writer(open(featuresFileName, 'a'), lineterminator='\n')
     row = [args.patientname]
