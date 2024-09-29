@@ -1385,6 +1385,52 @@ class Annotation(Base):
             else:
                 return imask
 
+    # # -------------- #
+    # | Custom Methods |
+    # # -------------- #
+
+    def visualize_nodule_boundary(self):
+        """
+        Simple method that helps visualizing the nodule's 
+        boundary according to the respective annotations 
+        """
+        vol = self.scan.to_volume()
+        con = self.contours[3]
+
+        k = con.image_k_position
+        ii,jj = self.contours[3].to_matrix(include_k=False).T
+
+        plt.imshow(vol[:,:,46], cmap=plt.cm.gray)
+        plt.plot(jj, ii, '-r', lw=1, label="Nodule Boundary")
+        plt.legend()
+        plt.show()
+
+    def visualize_nodule_mask(self):
+        """
+        Method that allows to visualize both nodule's outline 
+        from the CT Scan as well as its respective mask
+        """
+        vol = self.scan.to_volume()
+
+        padding = [(30,10), (10,25), (0,0)]
+
+        mask = self.boolean_mask(pad=padding)
+        bbox = self.bbox(pad=padding)
+
+        fig,ax = plt.subplots(1,2,figsize=(5,3))
+
+        ax[0].imshow(vol[bbox][:,:,2], cmap=plt.cm.gray)
+        ax[0].axis('off')
+
+        # Add a red contour of the mask on the left image
+        ax[0].contour(mask[:, :, 2], colors='red', linewidths=0.7)
+
+        ax[1].imshow(mask[:,:,2], cmap=plt.cm.gray)
+        ax[1].axis('off')
+
+        plt.tight_layout()
+        plt.show()
+
 
 # Add the relationship to the Scan model.
 Scan.annotations = relationship('Annotation',
