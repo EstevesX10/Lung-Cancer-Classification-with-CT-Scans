@@ -496,7 +496,7 @@ Support for DICOM Radiotherapy Structure Sets for defining region of interest ma
       with open(featuresFileName, "w") as trash:
         pass
       writer = csv.writer(open(featuresFileName, 'w'), lineterminator='\n')
-      writer.writerow(['nodule_id'] + headers)
+      writer.writerow(['annotation_id'] + headers)
     else:
       writer = csv.writer(open(featuresFileName, 'a'), lineterminator='\n')
     row = [args.patientname]
