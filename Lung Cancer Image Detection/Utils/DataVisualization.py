@@ -65,7 +65,7 @@ def plot_feature_distribution(df:pd.DataFrame=None, feature:str=None, forceCateg
             colors = [pastelize_color(cmap(i / (len(value_counts) - 1))) for i in range(len(value_counts))]
 
             # Plot the bars with gradient colors
-            plt.bar(value_counts.index.astype(str), value_counts.values, color=colors, alpha=1.0, width=0.95, zorder=2)
+            plt.bar(value_counts.index.astype(str), value_counts.values, color=colors, edgecolor='lightgrey', alpha=1.0, width=0.95, zorder=2)
             
             # Plot the grid behind the bars
             plt.grid(True, zorder=1)
@@ -84,7 +84,7 @@ def plot_feature_distribution(df:pd.DataFrame=None, feature:str=None, forceCateg
             plt.figure(figsize=(8, 5))
 
             # Plot the histogram with gradient colors
-            plt.hist(df[feature], bins=30, color='lightgreen', edgecolor='black', alpha=1.0, zorder=2)  # Center the bins over values
+            plt.hist(df[feature], bins=30, color='lightgreen', edgecolor='lightgrey', alpha=1.0, zorder=2)  # Center the bins over values
             
             # Add title and labels
             plt.title(f'Distribution of {feature}')
@@ -110,7 +110,7 @@ def plot_feature_distribution(df:pd.DataFrame=None, feature:str=None, forceCateg
             colors = [pastelize_color(cmap(i / (len(value_counts) - 1))) for i in range(len(value_counts))]
 
             # Plot the bars with gradient colors
-            plt.bar(value_counts.index.astype(str), value_counts.values, color=colors, alpha=1.0, width=0.95, zorder=2)
+            plt.bar(value_counts.index.astype(str), value_counts.values, color=colors, edgecolor='lightgrey', alpha=1.0, width=0.95, zorder=2)
             
             # Plot the grid behind the bars
             plt.grid(True, zorder=1)
