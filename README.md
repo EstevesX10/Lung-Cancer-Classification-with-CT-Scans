@@ -1,6 +1,6 @@
 <div align="center">
 
-# Labs AI & DS | Lung Cancer Image Detection
+# Labs AI & DS | Lung Cancer Classification with CT Data
 </div>
 
 <p align="center" width="100%">
