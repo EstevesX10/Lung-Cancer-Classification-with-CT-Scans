@@ -1,6 +1,6 @@
 <div align="center">
 
-# Labs AI & DS | Lung Cancer Classification with CT Data
+# Labs AI & DS | Lung Cancer Classification with CT Scans
 </div>
 
 <p align="center" width="100%">
@@ -19,16 +19,16 @@
 <br/>
 
 <div align="center">
-    <a href="https://github.com/EstevesX10/_INSERT_REPO_NAME_/blob/main/LICENSE">
-        <img src="https://img.shields.io/github/license/EstevesX10/_INSERT_REPO_NAME_?style=flat&logo=gitbook&logoColor=b62d46&label=License&color=b62d46">
+    <a href="https://github.com/EstevesX10/Lung-Cancer-Classification-with-CT-Scans/blob/main/LICENSE">
+        <img src="https://img.shields.io/github/license/EstevesX10/Lung-Cancer-Classification-with-CT-Scans?style=flat&logo=gitbook&logoColor=b62d46&label=License&color=b62d46">
     </a>
     <a href="">
-        <img src="https://img.shields.io/github/repo-size/EstevesX10/_INSERT_REPO_NAME_?style=flat&logo=googlecloudstorage&logoColor=b62d46&logoSize=auto&label=Repository%20Size&color=b62d46">
+        <img src="https://img.shields.io/github/repo-size/EstevesX10/Lung-Cancer-Classification-with-CT-Scans?style=flat&logo=googlecloudstorage&logoColor=b62d46&logoSize=auto&label=Repository%20Size&color=b62d46">
     </a>
     <a href="">
-        <img src="https://img.shields.io/github/stars/EstevesX10/_INSERT_REPO_NAME_?style=flat&logo=adafruit&logoColor=b62d46&logoSize=auto&label=Stars&color=b62d46">
+        <img src="https://img.shields.io/github/stars/EstevesX10/Lung-Cancer-Classification-with-CT-Scans?style=flat&logo=adafruit&logoColor=b62d46&logoSize=auto&label=Stars&color=b62d46">
     </a>
-    <a href="https://github.com/EstevesX10/_INSERT_REPO_NAME_/blob/main/DEPENDENCIES.md">
+    <a href="https://github.com/EstevesX10/Lung-Cancer-Classification-with-CT-Scans/blob/main/DEPENDENCIES.md">
         <img src="https://img.shields.io/badge/Dependencies-DEPENDENCIES.md-white?style=flat&logo=anaconda&logoColor=b62d46&logoSize=auto&color=b62d46"> 
     </a>
 </div>
@@ -42,7 +42,7 @@ Detection of Cancer nodules inside the Lungs [Labs of AI and DS UC]
 ## Project Development (Dependencies & Execution)
 As a request from our professors this project was developed using a `Notebook`. Therefore if you're looking forward to test it out yourself, keep in mind to either use a **[Anaconda Distribution](https://www.anaconda.com/)** or a 3rd party software that helps you inspect and execute it. 
 
-Therefore, for more informations regarding the **Virtual Environment** used in Anaconda, consider checking the [DEPENDENCIES.md](https://github.com/EstevesX10/_INSERT_REPO_NAME_/blob/main/DEPENDENCIES.md) file.
+Therefore, for more informations regarding the **Virtual Environment** used in Anaconda, consider checking the [DEPENDENCIES.md](https://github.com/EstevesX10/Lung-Cancer-Classification-with-CT-Scans/blob/main/DEPENDENCIES.md) file.
 
 ## Link for the Datasets
 
