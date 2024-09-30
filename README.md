@@ -4,10 +4,13 @@
 </div>
 
 <p align="center" width="100%">
-    <img src="./Lung Cancer Image Detection/Assets/LungCancerDetection.png" width="55%" height="55%" />
+    <img src="./Lung Cancer Classification with CT Data/Assets/LungCancerDetection.png" width="55%" height="55%" />
 </p>
 
 <div align="center">
+    <a>
+        <img src="https://img.shields.io/badge/Made%20with-Python-b62d46?style=for-the-badge&logo=Python&logoColor=b62d46">
+    </a>
     <a>
         <img src="https://img.shields.io/badge/Made%20with-Jupyter-b62d46?style=for-the-badge&logo=Jupyter&logoColor=b62d46">
     </a>
