@@ -24,7 +24,7 @@ def pastelize_color(c:tuple, weight:float=None) -> np.ndarray:
     # Returns a tuple with the values for the pastel version of the color provided
     return mcolors.to_rgba((np.array(mcolors.to_rgb(c)) * (1 - weight) + white * weight))
 
-def plot_feature_distribution(df:pd.DataFrame=None, feature:str=None, forceCategorical:bool=None) -> None:
+def plot_feature_distribution(df:pd.DataFrame=None, feature:str=None, forceCategorical:bool=None, featureDecoder:dict=None) -> None:
     """
     # Description
         -> This function plots the distribution of a feature (column) in a dataset.
@@ -32,6 +32,7 @@ def plot_feature_distribution(df:pd.DataFrame=None, feature:str=None, forceCateg
     := param: df - Pandas DataFrame containing the dataset
     := param: feature - Feature of the dataset to plot
     := param: forceCategorical - Forces a categorical analysis on a numerical feature
+    := param: featureDecoder - Dictionary with the conversion between the column value and its label [From Integer to String]
     """
 
     # Check if a dataframe was provided
@@ -60,14 +61,26 @@ def plot_feature_distribution(df:pd.DataFrame=None, feature:str=None, forceCateg
             plt.figure(figsize=(8, 5))
 
             # Get unique values and their counts
-            value_counts = df[feature].value_counts().sort_index()
+            valueCounts = df[feature].value_counts().sort_index()
             
+            # Check if a feature Decoder was given and map the values if possible
+            if featureDecoder is not None:
+                # Map the integer values to string labels
+                labels = valueCounts.index.map(lambda x: featureDecoder.get(x, x))
+                
+                # Tilt x-axis labels by 0 degrees and adjust the fontsize
+                plt.xticks(rotation=0, ha='center', fontsize=8)
+            
+            # Use numerical values as the class labels
+            else:
+                labels = valueCounts.index
+
             # Create a color map from green to red
             cmap = plt.get_cmap('RdYlGn_r')  # Reversed 'Red-Yellow-Green' colormap (green to red)
-            colors = [pastelize_color(cmap(i / (len(value_counts) - 1))) for i in range(len(value_counts))]
+            colors = [pastelize_color(cmap(i / (len(valueCounts) - 1))) for i in range(len(valueCounts))]
 
             # Plot the bars with gradient colors
-            bars = plt.bar(value_counts.index.astype(str), value_counts.values, color=colors, edgecolor='lightgrey', alpha=1.0, width=0.8, zorder=2)
+            bars = plt.bar(labels.astype(str), valueCounts.values, color=colors, edgecolor='lightgrey', alpha=1.0, width=0.8, zorder=2)
             
             # Plot the grid behind the bars
             plt.grid(True, zorder=1)
@@ -76,7 +89,7 @@ def plot_feature_distribution(df:pd.DataFrame=None, feature:str=None, forceCateg
             for i, bar in enumerate(bars):
                 yval = bar.get_height()
                 # Use a lighter color as the background for the text
-                lighter_color = pastelize_color(colors[i], weight=0.2)
+                lighterColor = pastelize_color(colors[i], weight=0.2)
                 plt.text(bar.get_x() + bar.get_width() / 2,
                          yval / 2,
                          int(yval),
@@ -84,11 +97,11 @@ def plot_feature_distribution(df:pd.DataFrame=None, feature:str=None, forceCateg
                          va='center',
                          fontsize=10,
                          color='black',
-                         bbox=dict(facecolor=lighter_color, edgecolor='none', boxstyle='round,pad=0.3'))
+                         bbox=dict(facecolor=lighterColor, edgecolor='none', boxstyle='round,pad=0.3'))
 
             # Add title and labels
             plt.title(f'Distribution of {feature}')
-            plt.xlabel(f'{feature} Labels')
+            plt.xlabel(f'{feature} Labels', labelpad=20)
             plt.ylabel('Number of Samples')
             
             # Display the plot
@@ -119,14 +132,14 @@ def plot_feature_distribution(df:pd.DataFrame=None, feature:str=None, forceCateg
             plt.figure(figsize=(8, 5))
 
             # Get unique values and their counts
-            value_counts = df[feature].value_counts().sort_index()
+            valueCounts = df[feature].value_counts().sort_index()
             
             # Create a color map from green to red
             cmap = plt.get_cmap('viridis')  # Reversed 'Red-Yellow-Green' colormap (green to red)
-            colors = [pastelize_color(cmap(i / (len(value_counts) - 1))) for i in range(len(value_counts))]
+            colors = [pastelize_color(cmap(i / (len(valueCounts) - 1))) for i in range(len(valueCounts))]
 
             # Plot the bars with gradient colors
-            plt.bar(value_counts.index.astype(str), value_counts.values, color=colors, edgecolor='lightgrey', alpha=1.0, width=0.8, zorder=2)
+            plt.bar(valueCounts.index.astype(str), valueCounts.values, color=colors, edgecolor='lightgrey', alpha=1.0, width=0.8, zorder=2)
             
             # Plot the grid behind the bars
             plt.grid(True, zorder=1)
@@ -135,7 +148,7 @@ def plot_feature_distribution(df:pd.DataFrame=None, feature:str=None, forceCateg
             for i, bar in enumerate(bars):
                 yval = bar.get_height()
                 # Use a lighter color as the background for the text
-                lighter_color = pastelize_color(colors[i], weight=0.2)
+                lighterColor = pastelize_color(colors[i], weight=0.2)
                 plt.text(bar.get_x() + bar.get_width() / 2,
                          yval / 2,
                          int(yval),
@@ -143,7 +156,7 @@ def plot_feature_distribution(df:pd.DataFrame=None, feature:str=None, forceCateg
                          va='center',
                          fontsize=10,
                          color='black',
-                         bbox=dict(facecolor=lighter_color, edgecolor='none', boxstyle='round,pad=0.3'))
+                         bbox=dict(facecolor=lighterColor, edgecolor='none', boxstyle='round,pad=0.3'))
 
             # Add title and labels
             plt.title(f'Distribution of {feature}')
@@ -173,10 +186,10 @@ def is_model_trained(model:BaseEstimator=None) -> bool:
         raise ValueError("The model must be an instance of both BaseEstimator and ClassifierMixin.")
 
     # Most scikit-learn models will have these attributes after training
-    trained_attributes = ['coef_', 'intercept_', 'n_features_in_', 'classes_']
+    trainedAttributes = ['coef_', 'intercept_', 'n_features_in_', 'classes_']
     
     # Check if any of the common trained attributes exist in the model
-    for attr in trained_attributes:
+    for attr in trainedAttributes:
         if hasattr(model, attr):
             return True
     return False
