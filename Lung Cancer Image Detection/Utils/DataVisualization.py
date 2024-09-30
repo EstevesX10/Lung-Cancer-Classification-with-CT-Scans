@@ -120,6 +120,9 @@ def plot_feature_distribution(df:pd.DataFrame=None, feature:str=None, forceCateg
             plt.xlabel(feature)
             plt.ylabel('Frequency')
             
+            # Tilt x-axis labels by 0 degrees and adjust the fontsize
+            plt.xticks(rotation=0, ha='center', fontsize=10)
+
             # Plot the grid behind the bars
             plt.grid(True, zorder=1)
             
@@ -160,9 +163,12 @@ def plot_feature_distribution(df:pd.DataFrame=None, feature:str=None, forceCateg
 
             # Add title and labels
             plt.title(f'Distribution of {feature}')
-            plt.xlabel(f'{feature} Labels')
+            plt.xlabel(f'{feature} Labels', labelpad=20)
             plt.ylabel('Number of Samples')
             
+            # Tilt x-axis labels by 0 degrees and adjust the fontsize
+            plt.xticks(rotation=0, ha='center', fontsize=8)
+
             # Display the plot
             plt.show()
     else:
