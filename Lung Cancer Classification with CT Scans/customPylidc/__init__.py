@@ -33,7 +33,7 @@ _engine  = _create_engine('sqlite:///'+_dbpath)
 _session = _sessionmaker(bind=_engine)()
 
 # Public stuff.
-from .Scan       import Scan
+from .Scan       import Scan, ClusterError
 from .Annotation import Annotation
 from .Contour    import Contour
 from .Zval       import Zval
