@@ -333,10 +333,9 @@ class Scan(Base):
 
         return images
 
-
     def cluster_annotations(self, metric='min', tol=None, factor=0.9,
                             min_tol=1e-1, return_distance_matrix=False,
-                            verbose=True):
+                            verbose=True, max_retries=5):
         """
         Estimate which annotations refer to the same physical 
         nodule in the CT scan. This method clusters all nodule Annotations for
@@ -416,68 +415,76 @@ class Scan(Base):
         """
         assert 0 < factor < 1, "`factor` must be in the interval (0,1)."
 
-        if isinstance(metric, str) and metric not in metrics.keys():
-            msg = 'Invalid `metric` string. See \n\n'
-            msg += '`from pylidc.annotation_distance_metrics import metrics`\n'
-            msg += '`print metrics.keys()`\n\n'
-            msg += 'for valid `metric` strings.'
-            raise ValueError(msg)
-        elif not callable(metric):
+        def try_clustering(tol):
+            """
+            Attempts to cluster annotations with the given tolerance.
+            """
+            D = np.zeros((N, N))  # Distance matrix
+
+            # Calculate distances between annotations
+            for i in range(N):
+                for j in range(i+1, N):
+                    D[i, j] = D[j, i] = metric(self.annotations[i], self.annotations[j])
+
+            adjacency = D <= tol
+            nnods, cids = connected_components(adjacency, directed=False)
+            ucids = np.unique(cids)
+            counts = [(cids == cid).sum() for cid in ucids]
+
+            return adjacency, nnods, cids, ucids, counts
+
+        # Fetch the metric function if it's a string
+        if isinstance(metric, str):
+            if metric not in metrics.keys():
+                raise ValueError(f"Invalid metric: {metric}. Available metrics are: {list(metrics.keys())}")
             metric = metrics[metric]
 
         N = len(self.annotations)
-
         tol = self.slice_thickness if tol is None else tol
         assert tol >= 0, "`tol` should be >= 0."
 
-        # Some special cases.
-        if   N == 0:
+        # Handle edge cases with 0 or 1 annotation
+        if N == 0:
             return []
         elif N == 1:
             return [[self.annotations[0]]]
 
-        D = np.zeros((N,N)) # The distance matrix.
+        # Try clustering with retries
+        retries = 0
+        while retries < max_retries:
+            adjacency, nnods, cids, ucids, counts = try_clustering(tol)
 
-        for i in range(N):
-            for j in range(i+1,N):
-                D[i,j] = D[j,i] = metric(self.annotations[i],
-                                         self.annotations[j])
+            # Check if clustering is successful (all clusters <= 4)
+            if all(c <= 4 for c in counts):
+                break  # Successful clustering
 
-        adjacency = D <= tol
-        nnods, cids = connected_components(adjacency, directed=False)
-        ucids = np.unique(cids)
-        counts = [(cids==cid).sum() for cid in ucids]
-
-        # Group again with smaller tolerance until there are 
-        # no nodules with more than 4 annotations.
-        while any([c > 4 for c in counts]):
+            # If not successful, reduce tolerance and retry
             tol *= factor
-            if tol < min_tol:
-                msg = "Failed to reduce all groups to <= 4 Annotations.\n"
-                msg+= "Some nodules may be close and must be grouped manually."
-                print(msg)
-                raise ClusterError
-            
-            adjacency = D <= tol
-            nnods, cids = connected_components(adjacency, directed=False)
-            ucids = np.unique(cids)
-            counts = [(cids==cid).sum() for cid in ucids]
+            retries += 1
 
+            if verbose:
+                print(f"Retrying clustering with tol={tol}... Attempt {retries}/{max_retries}")
+
+            # If we reach the min_tol and it's still failing
+            if tol < min_tol:
+                print("Clustering failed to reduce all groups to <= 4 Annotations.")
+                print(f"Proceeding with tol={tol}. Some clusters may have more than 4 annotations.")
+                break
+
+        # Final clusters creation
         clusters = [[] for _ in range(nnods)]
-        for i,cid in enumerate(cids):
+        for i, cid in enumerate(cids):
             clusters[cid].append(self.annotations[i])
 
         # Sort the clusters by increasing average z value of centroids.
         # This is really a convienience thing for the `scan.visualize` method.
-        clusters = sorted(clusters,
-                          key=lambda cluster: np.mean([ann.centroid[2]
-                                                       for ann in cluster]))
+        clusters = sorted(clusters, key=lambda cluster: np.mean([ann.centroid[2] for ann in cluster]))
 
         if return_distance_matrix:
-            return clusters, D
+            return clusters, adjacency
         else:
             return clusters
-
+    
     def visualize(self, annotation_groups=None):
         """
         Visualize the scan.
