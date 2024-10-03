@@ -118,3 +118,54 @@ def refactorPyradiomicsDataset(df_pyradiomics:pd.DataFrame, pyradiomicsRefactore
 
     # Return the refactored dataframe
     return df
+
+def mapTuplesInsideDataframe(df:pd.DataFrame, columnsToParse:list, verbose:bool=False) -> pd.DataFrame:
+    """
+    # Description
+        -> Maps the tuple-like strings from multiple columns inside
+        the DataFrame into separate columns for each one of its elements.
+        
+    := param: df - The input DataFrame.
+    := param: columnsToParse - A list of the columns whose content is composed by tuple-like strings.
+    
+    := return: The DataFrame with new columns added for each tuple-like string.
+    """
+    
+    # Iterate over the columns provided
+    for column in columnsToParse:
+        if verbose:
+            print(f"Processing column: {column}")
+
+
+        if column not in columnsToParse:
+            if verbose:
+                print(f"Column {column} does not need parsing")
+            pass
+        
+        # Create a list to store the extracted values
+        tupleValues = []
+        
+        # Iterate over each row in the specified column
+        for value in df[column]:
+            # Remove parentheses and split by commas
+            try:
+                # Strip the parentheses and split by comma
+                parsedValues = [float(x) for x in value.strip('()').split(',')]
+            except Exception as e:
+                # Handle cases where the value can't be parsed properly
+                if verbose:
+                    print(f"Error parsing value '{value}' in column '{column}': {e}")
+                parsedValues = []
+
+            # Append the parsed values (tuple) to the list
+            tupleValues.append(parsedValues)
+        
+        # Create new columns from the extracted values
+        # Only as many columns as needed for each tuple length
+        for i in range(max(len(t) for t in tupleValues)):
+            df[f"{column}_{i+1}"] = [t[i] if i < len(t) else None for t in tupleValues]
+
+        # Drop the original column after processing, if desired
+        df.drop(columns=[column], inplace=True)
+
+    return df
