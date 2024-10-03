@@ -135,12 +135,6 @@ def mapTuplesInsideDataframe(df:pd.DataFrame, columnsToParse:list, verbose:bool=
     for column in columnsToParse:
         if verbose:
             print(f"Processing column: {column}")
-
-
-        if column not in columnsToParse:
-            if verbose:
-                print(f"Column {column} does not need parsing")
-            pass
         
         # Create a list to store the extracted values
         tupleValues = []
