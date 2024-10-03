@@ -2,7 +2,9 @@
 
 # Defining which submodules to import when using from <package> import *
 __all__ = ["createPylidcInitialDataframe", "extractPylidcFeatures",
-           "refactorPyradiomicsDataset"]
+           "refactorPyradiomicsDataset",
+           "removeHighlyCorrelatedFeatures"]
 
 from .PylidcDataPreProcessing import (createPylidcInitialDataframe, extractPylidcFeatures)
 from .PyradiomicsDataPreProcessing import (refactorPyradiomicsDataset)
+from .DataPreProcessing import (removeHighlyCorrelatedFeatures)
