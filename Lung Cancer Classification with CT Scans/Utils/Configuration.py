@@ -5,6 +5,8 @@ def loadConfig() -> dict:
     """
     return {
         'pylidcFeaturesFilename':'./Datasets/pylidc_features.csv',
+        'multiClassPylidcFeaturesFilename':'./Datasets/multi_class_pylidc_features.csv',
+        'binaryPylidcFeaturesFilename':'./Datasets/binary_pylidc_features.csv',
         'pyradiomicsFeaturesFilename':'./Datasets/pyradiomics_features.csv',
         'pyradiomicsRefactoredFeaturesFilename':'./Datasets/refactored_pyradiomics_features.csv',
         'finalFeaturesDatasetFilename':'./Datasets/final_features_dataset.csv'
