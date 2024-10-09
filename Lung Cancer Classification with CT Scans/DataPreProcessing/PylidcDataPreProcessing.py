@@ -1,8 +1,12 @@
 import numpy as np
 import pandas as pd
+import os
 import customPylidc as pl
 from customPylidc import (ClusterError)
 import statistics as stats
+from sklearn.cluster import (KMeans)
+from sklearn.naive_bayes import (GaussianNB)
+from sklearn.preprocessing import (LabelEncoder)
 
 def createPylidcInitialDataframe() -> pd.DataFrame:
     """
@@ -116,3 +120,133 @@ def extractPylidcFeatures(pylidcFeaturesFilename:str) -> pd.DataFrame:
     
     # Return the Final dataframe
     return df
+
+
+def processIndeterminateNodules(df_pylidc:pd.DataFrame, method:str) -> pd.DataFrame:
+    """
+    # Description
+        -> This function processes lung nodules labeled as 'Indeterminate' (malignancy level 3) in different ways based 
+        on the selected method. You can either remove these cases or use clustering (K-Means) or probabilistic (Naive Bayes)
+        approaches to assign them to one of the remaining malignancy classes (1, 2, 4, or 5).
+
+    := param: df_pylidc - The input DataFrame containing lung nodule data.
+    := param: method - The method to process indeterminate nodules. Options are:
+                        - "remove": Removes all entries with malignancy level 3.
+                        - "kmeans": Uses K-Means clustering to assign indeterminate nodules to an existing class.
+                        - "gaussian": Uses Naive Bayes to assign indeterminate nodules to an existing class based on probabilistic predictions.
+    := return: A DataFrame where indeterminate nodules are either removed or reassigned to one of the non-indeterminate malignancy classes
+    """
+
+    # Check if the given method is valid
+    if method not in ["remove", "kmeans", "gaussian"]:
+        raise ValueError('Invalid Method Introduced!')
+    
+    if method == "remove":
+        # Prune the indeterminate nodules
+        df_binary_pylidc = df_pylidc.loc[df_pylidc['malignancy'] != 3]
+        return df_binary_pylidc
+    
+    # Fetch the Id column
+    idColumn = df_pylidc.columns[0]
+    ids = df_pylidc[idColumn]
+
+    # Drop the ID column
+    df = df_pylidc.drop(columns=idColumn)
+
+    if method == "kmeans":
+        # Get the dataset entries with a malignancy of 3 ('Indeterminate')
+        indeterminateNodules = df[df['malignancy'] == 3]
+
+        # Get the remaining nodules
+        nonIndeterminateNodules = df[df['malignancy'] != 3]
+
+        # Remove the target class to obtain the features (For both indeterminate and non determinate nodules)
+        X_nonIndeterminateNodules = nonIndeterminateNodules.drop(columns=['malignancy'])
+        X_indeterminateNodules = indeterminateNodules.drop(columns=['malignancy'])
+
+        # Perform K-Means to cluster the non Indeterminate Nodules
+        kmeans = KMeans(n_clusters=4)
+        kmeans.fit(X_nonIndeterminateNodules)
+
+        # Predict to which classes the Indeterminate nodules belong to
+        indeterminateClusters = kmeans.predict(X_indeterminateNodules)
+
+        # Retrieve the cluster labels
+        clusterLabels = kmeans.labels_
+
+        # Create a dictionary to map the clusters to already existing classes
+        cluster_to_class_map = {cluster: nonIndeterminateNodules.iloc[clusterLabels == cluster]['malignancy'].mode()[0] for cluster in range(4)}
+
+        # Map the Indeterminate nodules into the target class predicted by the K-means algorithm
+        indeterminateNodules['malignancy'] = [cluster_to_class_map[cluster] for cluster in indeterminateClusters]
+
+        # Merge back the indeterminate and non indeterminate nodules
+        df_pylidc_kmeans = pd.concat([nonIndeterminateNodules, indeterminateNodules])
+
+        # Reintroduce the nodule ID column
+        df_pylidc_kmeans[idColumn] = ids
+
+        # Insert the ID column back in the beginning of the dataset
+        df_pylidc_kmeans = df_pylidc_kmeans[[idColumn] + [col for col in df_pylidc_kmeans.columns if col != idColumn]]
+    
+        return df_pylidc_kmeans
+    
+    elif method == "gaussian":
+        # Separate the indeterminate nodules from the rest of the data
+        X = df[df['malignancy'] != 3].drop(columns=['malignancy'])
+        y = df[df['malignancy'] != 3]['malignancy']
+        X_indeterminateNodules = df[df['malignancy'] == 3].drop(columns=['malignancy'])
+
+        # Train the Naive Bayes model
+        model = GaussianNB()
+        model.fit(X, y)
+
+        # Predict the probabilities for indeterminate nodules
+        probabilities = model.predict_proba(X_indeterminateNodules)
+
+        # Assign the class with the highest probability to each indeterminate nodule
+        predicted_classes = model.predict(X_indeterminateNodules)
+
+        # Create a new version of the dataset with the updated target labels
+        df_pylidc_gaussian = df
+
+        # Assign the predicted classes back to the 'Indeterminate' entries
+        df_pylidc_gaussian.loc[df_pylidc_gaussian['malignancy'] == 3, 'malignancy'] = predicted_classes
+
+        # Reintroduzir a coluna de ID
+        df_pylidc_gaussian[idColumn] = ids
+
+        # Organizar as colunas para ter 'ID' como a primeira coluna novamente
+        df_pylidc_gaussian = df_pylidc_gaussian[[idColumn] + [col for col in df_pylidc_gaussian.columns if col != idColumn]]
+
+        return df_pylidc_gaussian
+    
+def binarizeTargetLabel(df_pylidc:pd.DataFrame, method:str, filename:str) -> pd.DataFrame:
+    """
+    # Description
+        -> This function transforms the 'malignancy' column in the given lung nodule dataset into a binary format, 
+        where nodules with malignancy levels 1 or 2 are labeled as 0 (low malignancy) and those with levels 4 or 5 
+        are labeled as 1 (high malignancy). The indeterminate cases (malignancy level 3) can be processed based on 
+        the specified method before binarization. The final binarized dataset can also be saved to a file.
+
+    := param: df_pylidc - The input DataFrame containing lung nodule data.
+    := param: method - The method to process indeterminate nodules. Options are:
+                        - "remove": Removes all entries with malignancy level 3.
+                        - "kmeans": Uses K-Means clustering to assign indeterminate nodules to an existing class.
+                        - "gaussian": Uses Naive Bayes to assign indeterminate nodules to an existing class based on probabilistic predictions.
+    := param: filename - The file path where the binarized dataset should be saved.
+    := return: The modified DataFrame with the 'malignancy' column binarized (0 for low malignancy, 1 for high malignancy).
+    """
+
+    # Process the Indeterminate Nodules based on the given method
+    df_pylidc_binary = processIndeterminateNodules(df_pylidc, method)
+
+    # Perform Binarization on the entries with the remaining target labels
+    df_pylidc_binary['malignancy'] = df_pylidc_binary['malignancy'].apply(lambda x: 0 if x <= 2 else 1)
+
+    # Save the binarized dataset
+    if not os.path.exists(filename):
+        df_pylidc_binary.to_csv(filename, sep=',', index=False)
+
+    # Return the binarized dataset
+    return df_pylidc_binary
