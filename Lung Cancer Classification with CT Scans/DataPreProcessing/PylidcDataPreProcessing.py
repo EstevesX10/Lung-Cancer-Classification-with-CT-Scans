@@ -121,6 +121,31 @@ def extractPylidcFeatures(pylidcFeaturesFilename:str) -> pd.DataFrame:
     # Return the Final dataframe
     return df
 
+def performPylidcDataNormalization(df_pylidc:pd.DataFrame, verbose:bool=False) -> pd.DataFrame:
+    """
+    # Description
+        -> This function aims to normalize given features from the pylidc dataset
+        Since we are working with already encoded categorical features we must
+        take them into consideration during normalization, therefore the need to indicate the columns to normalize
+    
+    := param: df_pylidc - DataFrame to be normalized
+    := param: verbose - Flag that determines whether ot not to include additional information regarding the function execution
+    := return: A new dataframe with the proper data normalized
+    """
+
+    # Perform a copy of the dataframe
+    df = df_pylidc.copy()
+
+    # Iterate through the features and perform min-max scaling [Note: The integer values are avoided beacuse they correspond to already encoded categorical values]
+    for feature in df.columns:
+        if not isinstance(df[feature][0], (np.int64)) and not isinstance(df[feature][0], (str)):
+            if verbose:
+                print(f"[Min-Max Scaling] performed in {feature}")
+            df[feature] = (df[feature] - df[feature].min()) / (df[feature].max() - df[feature].min())
+        else:
+            continue
+
+    return df
 
 def processIndeterminateNodules(df_pylidc:pd.DataFrame, method:str) -> pd.DataFrame:
     """
