@@ -163,30 +163,3 @@ def mapTuplesInsideDataframe(df:pd.DataFrame, columnsToParse:list, verbose:bool=
         df.drop(columns=[column], inplace=True)
 
     return df
-
-def performPyradiomicsDataNormalization(df_pyradiomics:pd.DataFrame, verbose:bool=False) -> pd.DataFrame:
-    """
-    # Description
-        -> This function aims to normalize given features from the pyradiomics dataset
-        Since we are working with already encoded categorical features we must
-        take them into consideration during normalization, therefore the need to indicate the columns to normalize
-    
-    := param: df_pyradiomics - DataFrame to be normalized
-    := param: verbose - Flag that determines whether ot not to include additional information regarding the function execution
-    := return: A new dataframe with the proper data normalized
-    """
-
-    # Perform a copy of the dataframe
-    df = df_pyradiomics.copy()
-
-    # Iterate through the features and perform min-max scaling
-    for feature in df.columns:
-        if not isinstance(df[feature][0], (np.int64)) and not isinstance(df[feature][0], (str)):
-            if verbose:
-                print(f"[Min-Max Scaling] performed in {feature}")
-            # df[feature] = (df[feature] - df[feature].min()) / (df[feature].max() - df[feature].min())
-            df[feature] = (df[feature] - df[feature].mean()) / df[feature].std()  
-        else:
-            continue
-
-    return df

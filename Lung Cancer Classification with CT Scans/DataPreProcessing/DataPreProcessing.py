@@ -1,6 +1,46 @@
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import (StratifiedKFold)
+from sklearn.preprocessing import (MinMaxScaler, StandardScaler)
+
+def performDataNormalization(df:pd.DataFrame, method:str=None, verbose:bool=False) -> pd.DataFrame:
+    """
+    # Description
+        -> This function aims to normalize float64 features from the extracted datasets
+        Since we are working with already encoded categorical features we must
+        take them into consideration during normalization, therefore the need to 
+        indicate the columns to normalize
+    
+    := param: df - DataFrame to be normalized
+    := param: method - Which data preprocessing technique to utilize [Either Normalization (Min-Max Scaling) or Standardization (Z-Score Scaling)]
+    := param: verbose - Flag that determines whether ot not to include additional information regarding the function execution
+    := return: A new dataframe with the proper data normalized
+    """
+
+    # Add a default value to the method to use
+    method = 'min-max' if method is None else method
+
+    # Check for a valid method
+    if method not in ['min-max', 'z-score']:
+        raise ValueError(f"Invalid \'{method}\' Method introduced! Please pick between (min-max or z-score)")
+
+    # Perform a copy of the dataframe
+    df_normalized = df.copy()
+
+    # Filter only columns with dtype of np.float64 [We do not want integer values since they are encoded categorical features and also not the nodule_id]
+    float64_cols = df_normalized.select_dtypes(include=['float64']).columns
+ 
+    # Perform Min-Max scaling
+    if method == "min-max":
+        scaler = MinMaxScaler()
+        df_normalized[float64_cols] = scaler.fit_transform(df_normalized[float64_cols])
+
+    # Apply Z-score scaling (Standardization) to the float64 columns
+    elif method == "z-score":
+        scaler = StandardScaler()
+        df_normalized[float64_cols] = scaler.fit_transform(df_normalized[float64_cols])
+
+    return df_normalized
 
 def removeHighlyCorrelatedFeatures(df:pd.DataFrame, correlationThreshold:float=0.9, verbose:bool=False) -> pd.DataFrame:
     """
