@@ -12,6 +12,28 @@ def loadConfig() -> dict:
         'finalFeaturesDatasetFilename':'./Datasets/final_features_dataset.csv'
     }
 
+def loadModelsPaths() -> dict:
+    """
+    # Description
+        -> Loads a dictionary with important paths when analysing a model's performance.
+    """
+    return {
+        'XGBClassifier':{
+            'bestParamsPath':'./ExperimentalResults/XGBoost/bestParams.json',
+            'modelPath':'./ExperimentalResults/XBGBoost/'
+        },
+
+        'SVC':{
+            'bestParamsPath':'./ExperimentalResults/SVM/bestParams.json',
+            'modelPath':'./ExperimentalResults/SVM/'
+        },
+
+        'RandomForestClassifier':{
+            'bestParamsPath':'./ExperimentalResults/RandomForest/bestParams.json',
+            'modelPath':'./ExperimentalResults/RandomForest/'
+        }
+    }
+
 def loadModelsParameterGrids() -> dict:
     """
     # Description
@@ -19,7 +41,7 @@ def loadModelsParameterGrids() -> dict:
         some machine learning algorithms to be used alongside GridSearch.
     """
     return {
-        'XGBoost':{
+        'XGBClassifier':{
             'max_depth': [4, 6, 8],
             'n_estimators': [50, 100, 150],
             'learning_rate': [0.01, 0.05, 0.1, 0.2],
@@ -29,13 +51,13 @@ def loadModelsParameterGrids() -> dict:
             'min_child_weight': [2, 3, 4]
         },
 
-        'SVM':{
+        'SVC':{
             'C': [0.1, 1, 10, 100],
             'gamma': [1, 0.1, 0.01, 0.001],
             'kernel': ['rbf', 'sigmoid']
         },
 
-        'RandomForest':{
+        'RandomForestClassifier':{
             'n_estimators': [100, 300, 500, 700, 900, 1100, 1300, 1500],
             'max_depth': [None, 10, 20, 30],
             'min_samples_split': [None, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
