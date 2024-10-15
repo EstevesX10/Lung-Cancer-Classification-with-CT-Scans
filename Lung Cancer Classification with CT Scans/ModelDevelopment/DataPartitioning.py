@@ -1,6 +1,6 @@
 import pandas as pd
-from sklearn.model_selection import StratifiedGroupKFold
-from imblearn.over_sampling import SMOTE
+from sklearn.model_selection import (StratifiedGroupKFold)
+from imblearn.over_sampling import (SMOTE)
 
 def stratifiedGroupSplit(preProcessedDataFrame:pd.DataFrame, useSMOTE:bool=None, test_size:float=None, randomState:int=None, verbose:bool=None) -> tuple:
     """
