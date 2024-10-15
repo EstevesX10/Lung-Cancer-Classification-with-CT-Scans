@@ -127,7 +127,7 @@ def mapTuplesInsideDataframe(df:pd.DataFrame, columnsToParse:list, verbose:bool=
         
     := param: df - The input DataFrame.
     := param: columnsToParse - A list of the columns whose content is composed by tuple-like strings.
-    
+    := param: verbose - Boolean value which decides whether or not to provide additional information during the function execution
     := return: The DataFrame with new columns added for each tuple-like string.
     """
     
