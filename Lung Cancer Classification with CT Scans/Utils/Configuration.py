@@ -20,19 +20,22 @@ def loadModelsPaths() -> dict:
     return {
         'XGBClassifier':{
             'bestParamsPath':'./ExperimentalResults/XGBoost/bestParams.json',
-            'modelMetrics':'./ExperimentalResults/XGBoost/metrics.json',
+            'modelEvaluationMetrics':'./ExperimentalResults/XGBoost/evaluationMetrics.json',
+            'modelEvaluationPlot':'./ExperimentalResults/XGBoost/evaluationPlot.png',
             'modelPath':'./ExperimentalResults/XBGBoost/'
         },
 
         'SVC':{
             'bestParamsPath':'./ExperimentalResults/SVM/bestParams.json',
-            'modelMetrics':'./ExperimentalResults/SVM/metrics.json',
+            'modelEvaluationMetrics':'./ExperimentalResults/SVM/evaluationMetrics.json',
+            'modelEvaluationPlot':'./ExperimentalResults/SVM/evaluationPlot.png',
             'modelPath':'./ExperimentalResults/SVM/'
         },
 
         'RandomForestClassifier':{
             'bestParamsPath':'./ExperimentalResults/RandomForest/bestParams.json',
-            'modelMetrics':'./ExperimentalResults/RandomForest/metrics.json',
+            'modelEvaluationMetrics':'./ExperimentalResults/RandomForest/evaluationMetrics.json',
+            'modelEvaluationPlot':'./ExperimentalResults/RandomForest/evaluationPlot.png',
             'modelPath':'./ExperimentalResults/RandomForest/'
         }
     }
