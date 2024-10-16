@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 from sklearn.base import (BaseEstimator, ClassifierMixin)
-from sklearn.metrics import (confusion_matrix, precision_recall_curve, average_precision_score, roc_curve, roc_auc_score, log_loss)
+from sklearn.metrics import (confusion_matrix, precision_recall_curve, average_precision_score, roc_curve, roc_auc_score, log_loss, balanced_accuracy_score, f1_score, hamming_loss)
 from .jsonFileManipulation import (dictToJsonFile, jsonFileToDict)
 
 def isModelTrained(model:BaseEstimator=None) -> bool:
@@ -34,13 +34,34 @@ def isModelTrained(model:BaseEstimator=None) -> bool:
             return True
     return False
 
-def evaluateModel(model:object=None, folds:list[Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]]=None, modelPaths:dict=None, targetLabels:list[str]=None, title:str=None) -> dict:
+def isValidAlgorithm(algorithm:object=None, bestParams:dict=None) -> bool:
+    """
+    # Description
+        -> Check if a given algorithm can be instanciated.
+    ------------------------------------------------------
+    := param: algorithm - A machine learning model class (e.g., XGBoost or any classifier implementing fit/predict).
+    := param: bestParams - Best parameters to use when instanciating the model.
+    := return: Boolean value describing if the algorithm can be instanciated with the given parameters.
+    """
+    # Check if it's callable (can be instantiated)
+    if callable(algorithm):
+        try:
+            # Try to instantiate it
+            _ = algorithm(**bestParams)  
+            return True
+        except:
+            return False
+    else:
+        return False
+
+def evaluateModel(algorithm:object=None, bestParams:dict=None, folds:list[Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]]=None, modelPaths:dict=None, targetLabels:list[str]=None, title:str=None) -> dict:
     """
     # Description
         -> Evaluate a machine learning model using a list of cross-validation 
         folds and plot the evaluation metrics.
     ---------------------------------------------------------------------------
-    := param: model - A non-trained machine learning model (e.g., XGBoost or any classifier implementing fit/predict).
+    := param: algorithm - A machine learning model class (e.g., XGBoost or any classifier implementing fit/predict).
+    := param: bestParams - Best parameters to use when instanciating the model.
     := param: folds - A list of tuples where each tuple contains (X_train, X_test, y_train, y_test) for each fold.
     := param: modelPaths - Dictionary with the paths to save the metrics associated with the model.
     := param: targetLabels - Target labels associated with the classification problem.
@@ -49,12 +70,12 @@ def evaluateModel(model:object=None, folds:list[Tuple[np.ndarray, np.ndarray, np
     """
     
     # Check if a model was provided
-    if model is None:
+    if algorithm is None:
         raise ValueError("Missing a model to evaluate!")
-
-    # Check if the given model has been previously trained
-    if isModelTrained(model):
-        raise ValueError("The model provided has already been trained!")
+    
+    # Check if the algorithm is valid
+    if not isValidAlgorithm(algorithm, bestParams):
+        raise ValueError("Got an Invalid Algorithm!")
 
     # Check if a folds list was provided
     if folds is None:
@@ -77,33 +98,48 @@ def evaluateModel(model:object=None, folds:list[Tuple[np.ndarray, np.ndarray, np
         raise ValueError("The target labels list is Empty!")
 
     # Get the possible metrics dictionary
-    if not os.path.exists(modelPaths[type(model).__name__]['modelEvaluationMetrics']):
+    if not os.path.exists(modelPaths[algorithm.__name__]['modelEvaluationMetrics']):
         calculatedMetrics = {}
     else:
-        calculatedMetrics = jsonFileToDict(modelPaths[type(model).__name__]['modelEvaluationMetrics'])
+        calculatedMetrics = jsonFileToDict(modelPaths[algorithm.__name__]['modelEvaluationMetrics'])
 
     # Check if the metrics have already been computed and can be imported
     if calculatedMetrics == {}:
-        # Initialize auxiliar variables
+        # Initialize auxiliar variables where we are going to store intermidiate results from each fold
         conf_matrices = []
         y_pred_proba_list = []
         y_test_list = []
         log_losses = []
+        balanced_accuracies = []
+        f1_scores = []
+        hamming_losses = []
         
         # Iterate through each fold
         for (X_train_fold, X_test_fold, y_train_fold, y_test_fold) in folds:
+
+            # Check for algorithms that do not support predict_proba natively
+            if algorithm.__name__ in ['SVC']:
+                # Create a new instance of the machine learning model, enabling the calculation of y_pred_proba
+                model = algorithm(**bestParams, probability=True)
+            else:
+                # Create a new instance of the machine learning model
+                model = algorithm(**bestParams)
+
             # Train the model on the training fold
             model.fit(X_train_fold, y_train_fold)
             
             # Make predictions on the test fold
             y_pred_fold = model.predict(X_test_fold)
             y_pred_proba_fold = model.predict_proba(X_test_fold)[:, 1]
-            
-            # Append results
+
+            # Calculate and append results
             conf_matrices.append(confusion_matrix(y_test_fold, y_pred_fold))
             y_pred_proba_list.append(y_pred_proba_fold)
             y_test_list.append(y_test_fold)
+            balanced_accuracies.append(balanced_accuracy_score(y_test_fold, y_pred_fold))
+            f1_scores.append(f1_score(y_test_fold, y_pred_fold))
             log_losses.append(log_loss(y_test_fold, y_pred_proba_fold))
+            hamming_losses.append(hamming_loss(y_test_fold, y_pred_fold))
 
         # Calculate average confusion matrix across all folds
         conf_matrix = np.average(conf_matrices, axis=0)
@@ -120,8 +156,17 @@ def evaluateModel(model:object=None, folds:list[Tuple[np.ndarray, np.ndarray, np
         fpr, tpr, _ = roc_curve(y_test_combined, y_pred_proba_combined)
         auc_score = roc_auc_score(y_test_combined, y_pred_proba_combined)
 
+        # Calculate the average balanced accuracy
+        avg_balanced_accuracy = np.mean(balanced_accuracies)
+        
+        # Calculate the average f1 scores
+        avg_f1_score = np.mean(f1_scores)
+
         # Calculate average log loss
         avg_log_loss = np.mean(log_losses)
+
+        # Calculate the average hamming loss
+        avg_hamming_loss = np.mean(hamming_losses)
 
         # Update the calculated metrics dictionary
         calculatedMetrics.update({
@@ -138,12 +183,21 @@ def evaluateModel(model:object=None, folds:list[Tuple[np.ndarray, np.ndarray, np
             'tpr':tpr.tolist(),
             'auc_score':auc_score,
 
+            # Average Balanced Accuracy
+            'avg_balanced_accuracy':avg_balanced_accuracy,
+
+            # Average F1 Score
+            'avg_f1_score':avg_f1_score,
+
             # Average log loss
-            'avg_log_loss':avg_log_loss
+            'avg_log_loss':avg_log_loss,
+            
+            # Average Hamming loss
+            'avg_hamming_loss':avg_hamming_loss,
         })
 
         # Save the calculated metrics into a json file
-        dictToJsonFile(calculatedMetrics, modelPaths[type(model).__name__]['modelEvaluationMetrics'])
+        dictToJsonFile(calculatedMetrics, modelPaths[algorithm.__name__]['modelEvaluationMetrics'])
 
     else:
         # Get the average confusion matrix across all folds
@@ -185,15 +239,15 @@ def evaluateModel(model:object=None, folds:list[Tuple[np.ndarray, np.ndarray, np
     axs[2].set_ylabel('True Labels')
 
     # Set the super title for all subplots
-    title = f"{type(model).__name__} Model Evaluation" if title is None else title
+    title = f"{algorithm.__name__} Model Evaluation" if title is None else title
     fig.suptitle(title)
 
     # Tighten up the layout
     plt.tight_layout()
 
     # Save the plot as a PNG file if it has not been already saved
-    if not os.path.exists(modelPaths[type(model).__name__]['modelEvaluationPlot']):
-        plt.savefig(modelPaths[type(model).__name__]['modelEvaluationPlot'], format="png", dpi=600)
+    if not os.path.exists(modelPaths[algorithm.__name__]['modelEvaluationPlot']):
+        plt.savefig(modelPaths[algorithm.__name__]['modelEvaluationPlot'], format="png", dpi=600)
 
     # Display the plot
     plt.show()
