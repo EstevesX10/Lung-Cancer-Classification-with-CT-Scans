@@ -14,15 +14,15 @@ def isMachineLearningModel(model:any) -> bool:
     """
     return isinstance(model, (BaseEstimator, xgb.XGBModel))
 
-def computeModelBestParameters(model:any, parameterGrid:dict, X_train:pd.DataFrame, y_train:pd.DataFrame, modelPathsConfig:dict, saveBestParams:bool) -> dict:
+def computeModelBestParameters(model:any, parameterGrid:dict, X:pd.DataFrame, y:pd.DataFrame, modelPathsConfig:dict, saveBestParams:bool) -> dict:
     """
     # Description
         -> This funtion aims to calculate the best parameters of a given model using a Grid Search approach.
     ----------------------------------------------------------------
     := param: model - Class type of a Machine Learning Algorithm which supports a BaseEstimator from Scikit-learn
     := param: parameterGrid - Hyperparameter values to consider when performing Grid Search.
-    := param: X_train - Features from the training set
-    := param: y_train - Target label from the trainin set.
+    := param: X - Features from the dataset.
+    := param: y - Target label from the dataset.
     := param: modelPathsConfig - Dictionary with the file paths to save the model best parameters.
     := param: saveBestParams - Boolean value that determined whether or not to save the best parameters of the model.
     """
@@ -38,7 +38,7 @@ def computeModelBestParameters(model:any, parameterGrid:dict, X_train:pd.DataFra
     gridSearch = GridSearchCV(estimator=classifier, param_grid=parameterGrid[type(classifier).__name__], refit=True, cv=3, n_jobs=-1, verbose=3)
 
     # Perform grid search
-    gridSearch.fit(X_train, y_train)
+    gridSearch.fit(X, y)
 
     # Retrive the best parameters
     bestParameters = gridSearch.best_params_
