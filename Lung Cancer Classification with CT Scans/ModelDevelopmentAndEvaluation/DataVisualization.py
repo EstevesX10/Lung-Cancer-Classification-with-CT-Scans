@@ -15,7 +15,7 @@ def plotScreeGraph(pcValues:np.ndarray, explainedVariance:np.ndarray) -> None:
     plt.plot(pcValues, explainedVariance, 'o-', linewidth=2, color='blue')
     plt.title('Scree Graph')
     plt.xlabel('Number of Components')
-    plt.ylabel('Cummulative Explained Variance')
+    plt.ylabel('Cumulative Explained Variance')
     for x in (50, 100, 150, 200):
         plt.axvline(x=x, color='red', linestyle='--')
     # plt.figure(figsize=(8,4))
