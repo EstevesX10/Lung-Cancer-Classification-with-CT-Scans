@@ -19,24 +19,66 @@ def loadModelsPaths() -> dict:
     """
     return {
         'XGBClassifier':{
-            'bestParamsPath':'./ExperimentalResults/XGBoost/bestParams.json',
-            'modelEvaluationMetrics':'./ExperimentalResults/XGBoost/evaluationMetrics.json',
-            'modelEvaluationPlot':'./ExperimentalResults/XGBoost/evaluationPlot.png',
-            'modelPath':'./ExperimentalResults/XBGBoost/'
+            'balanced_accuracy':{
+                # Obtained through Grid Search
+                'bestParamsPath':'./ExperimentalResults/XGBoost/balanced_accuracy/bestParams.json',
+                'bestEstimatorPath':'./ExperimentalResults/XBGBoost/balanced_accuracy/bestEstimator.pkl',
+                
+                # Obtained through Group K-Fold Cross Validation
+                'modelEvaluationMetrics':'./ExperimentalResults/XGBoost/balanced_accuracy/evaluationMetrics.json',
+                'modelEvaluationPlot':'./ExperimentalResults/XGBoost/balanced_accuracy/evaluationPlot.png'
+            },
+            'recall':{
+                # Obtained through Grid Search
+                'bestParamsPath':'./ExperimentalResults/XGBoost/recall/bestParams.json',
+                'bestEstimatorPath':'./ExperimentalResults/XBGBoost/recall/bestEstimator.pkl',
+
+                # Obtained through Group K-Fold Cross Validation
+                'modelEvaluationMetrics':'./ExperimentalResults/XGBoost/recall/evaluationMetrics.json',
+                'modelEvaluationPlot':'./ExperimentalResults/XGBoost/recall/evaluationPlot.png'
+            }
         },
 
         'SVC':{
-            'bestParamsPath':'./ExperimentalResults/SVM/bestParams.json',
-            'modelEvaluationMetrics':'./ExperimentalResults/SVM/evaluationMetrics.json',
-            'modelEvaluationPlot':'./ExperimentalResults/SVM/evaluationPlot.png',
-            'modelPath':'./ExperimentalResults/SVM/'
+            'balanced_accuracy':{
+                # Obtained through Grid Search
+                'bestParamsPath':'./ExperimentalResults/SVM/balanced_accuracy/bestParams.json',
+                'bestEstimatorPath':'./ExperimentalResults/SVM/balanced_accuracy/bestEstimator.pkl',
+
+                # Obtained through Group K-Fold Cross Validation
+                'modelEvaluationMetrics':'./ExperimentalResults/SVM/balanced_accuracy/evaluationMetrics.json',
+                'modelEvaluationPlot':'./ExperimentalResults/SVM/balanced_accuracy/evaluationPlot.png'
+            },
+            'recall':{
+                # Obtained through Grid Search
+                'bestParamsPath':'./ExperimentalResults/SVM/recall/bestParams.json',
+                'bestEstimatorPath':'./ExperimentalResults/SVM/recall/bestEstimator.pkl',
+
+                # Obtained through Group K-Fold Cross Validation
+                'modelEvaluationMetrics':'./ExperimentalResults/SVM/recall/evaluationMetrics.json',
+                'modelEvaluationPlot':'./ExperimentalResults/SVM/recall/evaluationPlot.png'
+            }
         },
 
         'RandomForestClassifier':{
-            'bestParamsPath':'./ExperimentalResults/RandomForest/bestParams.json',
-            'modelEvaluationMetrics':'./ExperimentalResults/RandomForest/evaluationMetrics.json',
-            'modelEvaluationPlot':'./ExperimentalResults/RandomForest/evaluationPlot.png',
-            'modelPath':'./ExperimentalResults/RandomForest/'
+            'balanced_accuracy':{
+                # Obtained through Grid Search
+                'bestParamsPath':'./ExperimentalResults/RandomForest/balanced_accuracy/bestParams.json',
+                'bestEstimatorPath':'./ExperimentalResults/RandomForest/balanced_accuracy/bestEstimator.pkl',
+
+                # Obtained through Group K-Fold Cross Validation
+                'modelEvaluationMetrics':'./ExperimentalResults/RandomForest/balanced_accuracy/evaluationMetrics.json',
+                'modelEvaluationPlot':'./ExperimentalResults/RandomForest/balanced_accuracy/evaluationPlot.png'
+            },
+            'recall':{
+                # Obtained through Grid Search
+                'bestParamsPath':'./ExperimentalResults/RandomForest/recall/bestParams.json',
+                'bestEstimatorPath':'./ExperimentalResults/RandomForest/recall/bestEstimator.pkl',
+
+                # Obtained through Group K-Fold Cross Validation
+                'modelEvaluationMetrics':'./ExperimentalResults/RandomForest/recall/evaluationMetrics.json',
+                'modelEvaluationPlot':'./ExperimentalResults/RandomForest/recall/evaluationPlot.png',
+            }
         }
     }
 
@@ -48,25 +90,29 @@ def loadModelsParameterGrids() -> dict:
     """
     return {
         'XGBClassifier':{
-            'max_depth': [4, 6, 8],
-            'n_estimators': [50, 100, 150],
-            'learning_rate': [0.01, 0.05, 0.1, 0.2],
-            'subsample': [0.6, 0.8, 1.0],
-            'colsample_bytree': [0.6, 0.8,1.0],
-            'gamma': [0, 0.2, 0.4],
-            'min_child_weight': [2, 3, 4]
+            'max_depth': [4, 6],
+            'n_estimators': [50, 100],
+            'learning_rate': [0.05, 0.1],
+            'subsample': [0.7, 0.8], 
+            'colsample_bytree': [0.7, 0.8], 
+            'gamma': [0, 0.1, 0.2],  
+            'min_child_weight': [1, 3]
         },
 
         'SVC':{
             'C': [0.1, 1, 10, 100],
-            'gamma': [1, 0.1, 0.01, 0.001],
-            'kernel': ['rbf', 'sigmoid']
+            'kernel': ['linear', 'rbf', 'poly'],
+            'gamma': ['scale', 'auto'],
+            'degree': [2, 3, 4],
+            'coef0': [0.0, 0.1, 0.5]
         },
 
         'RandomForestClassifier':{
-            'n_estimators': [100, 300, 500, 700, 900, 1100, 1300, 1500],
+            'n_estimators': [100, 200, 500],
             'max_depth': [None, 10, 20, 30],
-            'min_samples_split': [None, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            'min_samples_leaf': [1, 2, 3, 4, 5, 6]
+            'min_samples_split': [2, 5, 10],
+            'min_samples_leaf': [1, 2, 4],
+            'oob_score':[True],
+            'bootstrap':[True]
         }
     }
