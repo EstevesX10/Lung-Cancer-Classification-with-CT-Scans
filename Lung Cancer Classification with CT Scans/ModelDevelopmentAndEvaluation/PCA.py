@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from sklearn.decomposition import (PCA)
 
-def computePCA(numberComponents:int, X:pd.DataFrame) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+def computePCA(numberComponents:int, X:pd.DataFrame) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     # Description
         -> This function focuses on performing the principal component analysis
@@ -11,10 +11,9 @@ def computePCA(numberComponents:int, X:pd.DataFrame) -> Tuple[np.ndarray, np.nda
     ---------------------------------------------------------------------------
     := param: numberComponents - Number of components to be considered
     := param: X - Features Dataset
-    := return:  X_pca - Transformed features dataset by applying the PCA
-                explainedVariance - Array with each feature variance contribution on the dataset
-                pcValues - Principal Component Values [In a Array]
-                mostImportantFeatures - Features indices to maintain from the original dataframe.
+    := return:  mostImportantFeatures - Features indices to maintain from the original dataframe.
+                explainedVariance - Array with each feature variance contribution on the dataset.
+                pcValues - Principal Component Values [In a Array].
     """
     # Setting a default value for the number of components
     numberComponents = X.shape[1] - 1 if numberComponents is None or numberComponents >= X.shape[1] else numberComponents
@@ -31,8 +30,16 @@ def computePCA(numberComponents:int, X:pd.DataFrame) -> Tuple[np.ndarray, np.nda
     # Get the principal Component Values
     pcValues = np.arange(pca.n_components_) + 1
 
-    # Get most important features to later update the dataset
-    mostImportantFeatures = np.abs(pca.components_).argmax(axis=1)
+    # Get the PCA components
+    components = pca.components_
 
-    # Return the most important features, the explained variance as well as the principal component values
-    return (X_pca, explainedVariance, pcValues, mostImportantFeatures)
+    # For each component find the most important feature
+    for i in range(pca.n_components_):
+        # Get current component
+        component = components[i]
+
+        # Order by the hightest weights in absolute value
+        mostImportantFeaturesIdxs = np.abs(component).argsort()[::-1][:numberComponents]
+
+    # Return the indices of the most important features, the explained variance as well as the principal component values
+    return (mostImportantFeaturesIdxs, explainedVariance, pcValues)
