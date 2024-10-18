@@ -119,17 +119,16 @@ def evaluateModel(algorithm:object=None, bestParams:dict=None, scoring:str=None,
         f1_scores = []
         hamming_losses = []
         
+        # Check for algorithms that do not support predict_proba natively
+        if algorithm.__name__ in ['SVC']:
+            # Create a new instance of the machine learning model, enabling the calculation of y_pred_proba
+            model = algorithm(**bestParams, probability=True)
+        else:
+            # Create a new instance of the machine learning model
+            model = algorithm(**bestParams)
+
         # Iterate through each fold
         for (X_train_fold, X_test_fold, y_train_fold, y_test_fold) in folds:
-
-            # Check for algorithms that do not support predict_proba natively
-            if algorithm.__name__ in ['SVC']:
-                # Create a new instance of the machine learning model, enabling the calculation of y_pred_proba
-                model = algorithm(**bestParams, probability=True)
-            else:
-                # Create a new instance of the machine learning model
-                model = algorithm(**bestParams)
-
             # Train the model on the training fold
             model.fit(X_train_fold, y_train_fold)
             
