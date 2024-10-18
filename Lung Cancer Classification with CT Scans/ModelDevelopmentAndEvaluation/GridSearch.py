@@ -30,7 +30,7 @@ def computeModelBestParameters(model:object, parameterGrid:dict, X:pd.DataFrame,
     """
 
     # Check if the given scoring method is valid
-    if scoring not in ['balanced_accuracy', 'recall']:
+    if scoring not in ['accuracy', 'balanced_accuracy', 'recall'] and scoring is not None:
         raise ValueError("Got Invalid Scoring!")
 
     # Instanciate the classifier

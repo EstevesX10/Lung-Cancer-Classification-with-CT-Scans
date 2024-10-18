@@ -79,7 +79,7 @@ def evaluateModel(algorithm:object=None, bestParams:dict=None, scoring:str=None,
         raise ValueError("Got an Invalid Algorithm!")
 
     # Check if the given scoring is valid
-    if scoring not in ['balanced_accuracy', 'recall']:
+    if scoring not in ['accuracy', 'balanced_accuracy', 'recall'] and scoring is not None:
         raise ValueError("Got Invalid Scoring!")
 
     # Check if a folds list was provided
