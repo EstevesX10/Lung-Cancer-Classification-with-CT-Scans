@@ -1,7 +1,6 @@
 import pandas as pd
 from sklearn.base import (BaseEstimator)
 from sklearn.model_selection import (GridSearchCV)
-from sklearn.metrics import (SCORERS)
 import xgboost as xgb
 from .jsonFileManipulation import (dictToJsonFile, jsonFileToDict)
 from .pickleBestEstimatorsManagement import (saveBestEstimator)
@@ -31,7 +30,7 @@ def computeModelBestParameters(model:object, parameterGrid:dict, X:pd.DataFrame,
     """
 
     # Check if the given scoring method is valid
-    if scoring not in SCORERS:
+    if scoring not in ['balanced_accuracy', 'recall']:
         raise ValueError("Got Invalid Scoring!")
 
     # Instanciate the classifier

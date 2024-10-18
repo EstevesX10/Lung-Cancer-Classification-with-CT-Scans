@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 from sklearn.base import (BaseEstimator, ClassifierMixin)
-from sklearn.metrics import (SCORERS)
 from sklearn.metrics import (confusion_matrix, precision_recall_curve, average_precision_score, roc_curve, roc_auc_score, log_loss, balanced_accuracy_score, f1_score, hamming_loss)
 from .jsonFileManipulation import (dictToJsonFile, jsonFileToDict)
 
@@ -80,7 +79,7 @@ def evaluateModel(algorithm:object=None, bestParams:dict=None, scoring:str=None,
         raise ValueError("Got an Invalid Algorithm!")
 
     # Check if the given scoring is valid
-    if scoring not in SCORERS:
+    if scoring not in ['balanced_accuracy', 'recall']:
         raise ValueError("Got Invalid Scoring!")
 
     # Check if a folds list was provided
