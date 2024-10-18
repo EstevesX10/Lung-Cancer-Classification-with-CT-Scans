@@ -19,6 +19,15 @@ def loadModelsPaths() -> dict:
     """
     return {
         'SVC':{
+            'accuracy':{
+                # Obtained through Grid Search
+                'bestParamsPath':'./ExperimentalResults/SVM/accuracy/bestParams.json',
+                'bestEstimatorPath':'./ExperimentalResults/SVM/accuracy/bestEstimator.pkl',
+
+                # Obtained through Group K-Fold Cross Validation
+                'modelEvaluationMetrics':'./ExperimentalResults/SVM/accuracy/evaluationMetrics.json',
+                'modelEvaluationPlot':'./ExperimentalResults/SVM/accuracy/evaluationPlot.png'
+            },
             'balanced_accuracy':{
                 # Obtained through Grid Search
                 'bestParamsPath':'./ExperimentalResults/SVM/balanced_accuracy/bestParams.json',
@@ -40,6 +49,15 @@ def loadModelsPaths() -> dict:
         },
 
         'RandomForestClassifier':{
+            'accuracy':{
+                # Obtained through Grid Search
+                'bestParamsPath':'./ExperimentalResults/RandomForest/accuracy/bestParams.json',
+                'bestEstimatorPath':'./ExperimentalResults/RandomForest/accuracy/bestEstimator.pkl',
+
+                # Obtained through Group K-Fold Cross Validation
+                'modelEvaluationMetrics':'./ExperimentalResults/RandomForest/accuracy/evaluationMetrics.json',
+                'modelEvaluationPlot':'./ExperimentalResults/RandomForest/accuracy/evaluationPlot.png'
+            },
             'balanced_accuracy':{
                 # Obtained through Grid Search
                 'bestParamsPath':'./ExperimentalResults/RandomForest/balanced_accuracy/bestParams.json',
@@ -61,6 +79,15 @@ def loadModelsPaths() -> dict:
         },
 
         'XGBClassifier':{
+            'accuracy':{
+                # Obtained through Grid Search
+                'bestParamsPath':'./ExperimentalResults/XGBoost/accuracy/bestParams.json',
+                'bestEstimatorPath':'./ExperimentalResults/XGBoost/accuracy/bestEstimator.pkl',
+                
+                # Obtained through Group K-Fold Cross Validation
+                'modelEvaluationMetrics':'./ExperimentalResults/XGBoost/accuracy/evaluationMetrics.json',
+                'modelEvaluationPlot':'./ExperimentalResults/XGBoost/accuracy/evaluationPlot.png'
+            },
             'balanced_accuracy':{
                 # Obtained through Grid Search
                 'bestParamsPath':'./ExperimentalResults/XGBoost/balanced_accuracy/bestParams.json',
