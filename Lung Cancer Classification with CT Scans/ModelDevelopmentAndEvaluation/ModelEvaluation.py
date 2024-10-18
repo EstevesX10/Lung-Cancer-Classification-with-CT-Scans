@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 from sklearn.base import (BaseEstimator, ClassifierMixin)
+from sklearn.metrics import (SCORERS)
 from sklearn.metrics import (confusion_matrix, precision_recall_curve, average_precision_score, roc_curve, roc_auc_score, log_loss, balanced_accuracy_score, f1_score, hamming_loss)
 from .jsonFileManipulation import (dictToJsonFile, jsonFileToDict)
 
@@ -54,7 +55,7 @@ def isValidAlgorithm(algorithm:object=None, bestParams:dict=None) -> bool:
     else:
         return False
 
-def evaluateModel(algorithm:object=None, bestParams:dict=None, folds:list[Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]]=None, modelPaths:dict=None, targetLabels:list[str]=None, title:str=None) -> dict:
+def evaluateModel(algorithm:object=None, bestParams:dict=None, scoring:str=None, folds:list[Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]]=None, modelPaths:dict=None, targetLabels:list[str]=None, title:str=None) -> dict:
     """
     # Description
         -> Evaluate a machine learning model using a list of cross-validation 
@@ -62,6 +63,7 @@ def evaluateModel(algorithm:object=None, bestParams:dict=None, folds:list[Tuple[
     ---------------------------------------------------------------------------
     := param: algorithm - A machine learning model class (e.g., XGBoost or any classifier implementing fit/predict).
     := param: bestParams - Best parameters to use when instanciating the model.
+    := param: scoring - Evaluation metric to take into consideration when performing Grid Search.
     := param: folds - A list of tuples where each tuple contains (X_train, X_test, y_train, y_test) for each fold.
     := param: modelPaths - Dictionary with the paths to save the metrics associated with the model.
     := param: targetLabels - Target labels associated with the classification problem.
@@ -76,6 +78,10 @@ def evaluateModel(algorithm:object=None, bestParams:dict=None, folds:list[Tuple[
     # Check if the algorithm is valid
     if not isValidAlgorithm(algorithm, bestParams):
         raise ValueError("Got an Invalid Algorithm!")
+
+    # Check if the given scoring is valid
+    if scoring not in SCORERS:
+        raise ValueError("Got Invalid Scoring!")
 
     # Check if a folds list was provided
     if folds is None:
@@ -98,10 +104,10 @@ def evaluateModel(algorithm:object=None, bestParams:dict=None, folds:list[Tuple[
         raise ValueError("The target labels list is Empty!")
 
     # Get the possible metrics dictionary
-    if not os.path.exists(modelPaths[algorithm.__name__]['modelEvaluationMetrics']):
+    if not os.path.exists(modelPaths[algorithm.__name__][scoring]['modelEvaluationMetrics']):
         calculatedMetrics = {}
     else:
-        calculatedMetrics = jsonFileToDict(modelPaths[algorithm.__name__]['modelEvaluationMetrics'])
+        calculatedMetrics = jsonFileToDict(modelPaths[algorithm.__name__][scoring]['modelEvaluationMetrics'])
 
     # Check if the metrics have already been computed and can be imported
     if calculatedMetrics == {}:
@@ -197,7 +203,7 @@ def evaluateModel(algorithm:object=None, bestParams:dict=None, folds:list[Tuple[
         })
 
         # Save the calculated metrics into a json file
-        dictToJsonFile(calculatedMetrics, modelPaths[algorithm.__name__]['modelEvaluationMetrics'])
+        dictToJsonFile(calculatedMetrics, modelPaths[algorithm.__name__][scoring]['modelEvaluationMetrics'])
 
     else:
         # Get the average confusion matrix across all folds
@@ -246,8 +252,8 @@ def evaluateModel(algorithm:object=None, bestParams:dict=None, folds:list[Tuple[
     plt.tight_layout()
 
     # Save the plot as a PNG file if it has not been already saved
-    if not os.path.exists(modelPaths[algorithm.__name__]['modelEvaluationPlot']):
-        plt.savefig(modelPaths[algorithm.__name__]['modelEvaluationPlot'], format="png", dpi=600)
+    if not os.path.exists(modelPaths[algorithm.__name__][scoring]['modelEvaluationPlot']):
+        plt.savefig(modelPaths[algorithm.__name__][scoring]['modelEvaluationPlot'], format="png", dpi=600)
 
     # Display the plot
     plt.show()
