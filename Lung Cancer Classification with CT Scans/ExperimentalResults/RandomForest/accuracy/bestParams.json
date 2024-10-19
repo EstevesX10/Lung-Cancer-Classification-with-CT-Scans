@@ -1,0 +1,8 @@
+{
+    "bootstrap": true,
+    "max_depth": null,
+    "min_samples_leaf": 4,
+    "min_samples_split": 2,
+    "n_estimators": 100,
+    "oob_score": true
+}
