@@ -224,3 +224,59 @@ def evaluateModel(algorithm:object=None, scoring:str=None, folds:list[Tuple[np.n
 
     # Return the model metrics
     return calculatedMetrics
+
+def convertMetricsToDataFrame(metricsList:list[list[str, dict]]) -> pd.DataFrame:
+    """
+    # Description
+        -> Converts a list of [algorithm, collectedMetrics] into a dataframe to 
+        better visualize the whole performance of the models.
+    ----------------------------------------------------------------------------
+    := param: metricsList - List with all the previously collected data.
+    := return: pandas Dataframe with all the collected data properly organized.
+    """
+    
+    def toCamelCase(text:str) -> str:
+        """
+        # Description
+            -> This function converts a given text to camelCase
+        -------------------------------------------------------
+        := param: text - String to convert .
+        := return: Formated string in camel case
+        """
+        s = text.replace("-", " ").replace("_", " ")
+        s = s.split()
+        if len(text) == 0:
+            return text
+        return s[0] + ''.join(i.capitalize() for i in s[1:])
+
+    # Get the firt dictionary to occur [To get all the keys since all dicts are going to have the same]
+    firstDictionary = metricsList[0][1]
+
+    # Hardcode the columns to later remove
+    columnsToRemove = ['conf_matrix', 'fpr', 'tpr', 'precision', 'recall']
+    
+    # Fetch all the columns to use in the dataframe
+    df_columns = ['Algorithm'] + [columnName \
+                  for columnName in sorted(list(firstDictionary.keys()))]
+
+    # Initialize a dataframe to store the results in
+    df_metrics = pd.DataFrame(columns=df_columns)
+
+    # Iterate over the collected metrics
+    for algorithm, metricsDict in metricsList:
+        # Create a new line for the dataframe
+        newLine = pd.DataFrame(columns=df_columns)
+        newLine = pd.DataFrame.from_dict([metricsDict])
+        newLine['Algorithm'] = algorithm
+
+        # Concatenate the new line to the previously created dataframe
+        df_metrics = pd.concat([df_metrics, newLine], ignore_index=True)
+
+    # Drop unnecessary columns
+    df_metrics = df_metrics.drop(columns=columnsToRemove)
+
+    # Format the columns names to camel case
+    df_metrics.columns = list(toCamelCase(col.replace('avg_', '')) for col in df_metrics.columns)
+    
+    # Return dataframe
+    return df_metrics
