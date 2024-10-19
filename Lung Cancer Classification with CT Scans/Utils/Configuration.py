@@ -9,7 +9,8 @@ def loadConfig() -> dict:
         'binaryPylidcFeaturesFilename':'./Datasets/binary_pylidc_features.csv',
         'pyradiomicsFeaturesFilename':'./Datasets/pyradiomics_features.csv',
         'pyradiomicsRefactoredFeaturesFilename':'./Datasets/refactored_pyradiomics_features.csv',
-        'finalFeaturesDatasetFilename':'./Datasets/final_features_dataset.csv'
+        'finalFeaturesDatasetFilename':'./Datasets/final_features_dataset.csv',
+        'metricsDatasetFilename':'./Datasets/metrics_collected.csv',
     }
 
 def loadModelsPaths() -> dict:
