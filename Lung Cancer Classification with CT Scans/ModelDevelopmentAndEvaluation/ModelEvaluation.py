@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 from sklearn.metrics import (confusion_matrix, precision_recall_curve, average_precision_score, roc_curve, roc_auc_score, log_loss, accuracy_score, balanced_accuracy_score, f1_score, hamming_loss)
-from sklearn.ensemble import (VotingClassifier)
 from .jsonFileManagement import (dictToJsonFile, jsonFileToDict)
 from .pickleBestEstimatorsManagement import (loadBestEstimator)
 
@@ -225,16 +224,18 @@ def evaluateModel(algorithm:object=None, scoring:str=None, folds:list[Tuple[np.n
     # Return the model metrics
     return calculatedMetrics
 
-def convertMetricsToDataFrame(metricsList:list[list[str, dict]]) -> pd.DataFrame:
+def convertMetricsToDataFrame(metricsList:list[list[str, dict]]=None, filePath:str=None, saveMetrics:bool=None) -> pd.DataFrame:
     """
     # Description
         -> Converts a list of [algorithm, collectedMetrics] into a dataframe to 
         better visualize the whole performance of the models.
     ----------------------------------------------------------------------------
     := param: metricsList - List with all the previously collected data.
+    := param: filePath - Path to where the metrics dataframe should be saved.
+    := param: saveMetrics - Boolean Value that determines wheter or not to save the metrics dataframe.
     := return: pandas Dataframe with all the collected data properly organized.
     """
-    
+
     def toCamelCase(text:str) -> str:
         """
         # Description
@@ -248,6 +249,21 @@ def convertMetricsToDataFrame(metricsList:list[list[str, dict]]) -> pd.DataFrame
         if len(text) == 0:
             return text
         return s[0] + ''.join(i.capitalize() for i in s[1:])
+
+    # Check if a metrics List was provided
+    if metricsList is None:
+        raise ValueError("Missing a Proper List with all the metrics!")
+    
+    # Check if the metrics list is empty
+    if len(metricsList) == 0:
+        raise ValueError("Empty Metrics List!")
+
+    # Check if a file path for the final dataframe was provided
+    if filePath is None:
+        raise ValueError("Missing path to save the final metrics dataframe!")
+
+    # Define a default value for the saveMetrics
+    saveMetrics = False if saveMetrics is None else saveMetrics
 
     # Get the firt dictionary to occur [To get all the keys since all dicts are going to have the same]
     firstDictionary = metricsList[0][1]
@@ -278,5 +294,9 @@ def convertMetricsToDataFrame(metricsList:list[list[str, dict]]) -> pd.DataFrame
     # Format the columns names to camel case
     df_metrics.columns = list(toCamelCase(col.replace('avg_', '')) for col in df_metrics.columns)
     
+    # Save the final dataframe if requested
+    if saveMetrics:
+        df_metrics.to_csv(filePath, sep=',', index=False)
+
     # Return dataframe
     return df_metrics
