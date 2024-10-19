@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 from sklearn.metrics import (confusion_matrix, precision_recall_curve, average_precision_score, roc_curve, roc_auc_score, log_loss, accuracy_score, balanced_accuracy_score, f1_score, hamming_loss)
+from sklearn.ensemble import (VotingClassifier)
 from .jsonFileManagement import (dictToJsonFile, jsonFileToDict)
 from .pickleBestEstimatorsManagement import (loadBestEstimator)
 
@@ -69,8 +70,21 @@ def evaluateModel(algorithm:object=None, scoring:str=None, folds:list[Tuple[np.n
         f1_scores = []
         hamming_losses = []
 
-        # Load the best estimator obtained from Grid Search
-        model = loadBestEstimator(modelPaths[algorithm.__name__][scoring]['bestEstimatorPath'])
+        # Check if we are to create a voting classifier with the SVM, Random Forest and XGBoost with the same scoring method
+        if algorithm.__name__ == "VotingClassifier":
+            model = algorithm(estimators=[(
+                'SVC',
+                loadBestEstimator(modelPaths['SVC'][scoring]['bestEstimatorPath'])
+            ),(
+                'RandomForestClassifier',
+                loadBestEstimator(modelPaths['RandomForestClassifier'][scoring]['bestEstimatorPath'])
+            ),(
+                'XGBClassifier',
+                loadBestEstimator(modelPaths['XGBClassifier'][scoring]['bestEstimatorPath'])
+            )], voting='soft')
+        else:
+            # Load the best estimator obtained from Grid Search
+            model = loadBestEstimator(modelPaths[algorithm.__name__][scoring]['bestEstimatorPath'])
 
         # Iterate through each fold
         for (X_train_fold, X_test_fold, y_train_fold, y_test_fold) in folds:

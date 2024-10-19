@@ -106,6 +106,36 @@ def loadModelsPaths() -> dict:
                 'modelEvaluationMetrics':'./ExperimentalResults/XGBoost/recall/evaluationMetrics.json',
                 'modelEvaluationPlot':'./ExperimentalResults/XGBoost/recall/evaluationPlot.png'
             }
+        },
+
+        'VotingClassifier':{
+            'accuracy':{
+                # Obtained through Grid Search
+                'bestParamsPath':'./ExperimentalResults/VotingClassifier/accuracy/bestParams.json',
+                'bestEstimatorPath':'./ExperimentalResults/VotingClassifier/accuracy/bestEstimator.pkl',
+                
+                # Obtained through Group K-Fold Cross Validation
+                'modelEvaluationMetrics':'./ExperimentalResults/VotingClassifier/accuracy/evaluationMetrics.json',
+                'modelEvaluationPlot':'./ExperimentalResults/VotingClassifier/accuracy/evaluationPlot.png'
+            },
+            'balanced_accuracy':{
+                # Obtained through Grid Search
+                'bestParamsPath':'./ExperimentalResults/VotingClassifier/balanced_accuracy/bestParams.json',
+                'bestEstimatorPath':'./ExperimentalResults/VotingClassifier/balanced_accuracy/bestEstimator.pkl',
+                
+                # Obtained through Group K-Fold Cross Validation
+                'modelEvaluationMetrics':'./ExperimentalResults/VotingClassifier/balanced_accuracy/evaluationMetrics.json',
+                'modelEvaluationPlot':'./ExperimentalResults/VotingClassifier/balanced_accuracy/evaluationPlot.png'
+            },
+            'recall':{
+                # Obtained through Grid Search
+                'bestParamsPath':'./ExperimentalResults/VotingClassifier/recall/bestParams.json',
+                'bestEstimatorPath':'./ExperimentalResults/VotingClassifier/recall/bestEstimator.pkl',
+
+                # Obtained through Group K-Fold Cross Validation
+                'modelEvaluationMetrics':'./ExperimentalResults/VotingClassifier/recall/evaluationMetrics.json',
+                'modelEvaluationPlot':'./ExperimentalResults/VotingClassifier/recall/evaluationPlot.png'
+            }
         }
     }
 
