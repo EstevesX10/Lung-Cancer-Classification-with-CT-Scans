@@ -112,7 +112,7 @@ def evaluateModel(algorithm:object=None, scoring:str=None, folds:list[Tuple[np.n
         y_pred_proba_combined = np.concatenate(y_pred_proba_list)
 
         # Calculate Precision-Recall curve
-        precision, recall, _ = precision_recall_curve(y_test_combined, y_pred_proba_combined)
+        precisionScores, recallScores, _ = precision_recall_curve(y_test_combined, y_pred_proba_combined)
         avg_precision = average_precision_score(y_test_combined, y_pred_proba_combined)
 
         # Calculate ROC curve and AUC
@@ -136,27 +136,32 @@ def evaluateModel(algorithm:object=None, scoring:str=None, folds:list[Tuple[np.n
 
         # Update the calculated metrics dictionary
         calculatedMetrics.update({
-            # Average Accuracy
+            # (Average) Accuracy
             'avg_accuracy':avg_accuracy,
+            'accuracy_scores':accuracies.tolist(),
 
-            # Average Balanced Accuracy
+            # (Average) Balanced Accuracy
             'avg_balanced_accuracy':avg_balanced_accuracy,
+            'balanced_accuracy_scores':balanced_accuracies.tolist(),
 
-            # Average F1 Score
+            # (Average) F1 Score
             'avg_f1_score':avg_f1_score,
+            'f1_scores':f1_scores.tolist(),
 
-            # Average log loss
+            # (Average) log loss
             'avg_log_loss':avg_log_loss,
+            'log_loss_scores':log_losses.tolist(),
             
-            # Average Hamming loss
+            # (Average) Hamming loss
             'avg_hamming_loss':avg_hamming_loss,
+            'hamming_loss_scores':hamming_losses.tolist(),
 
             # Average confusion matrix across all folds
             'conf_matrix':conf_matrix.tolist(),
 
             # From the Precision-Recall curve
-            'precision':precision.tolist(),
-            'recall':recall.tolist(),
+            'precision_scores':precisionScores.tolist(),
+            'recall_scores':recallScores.tolist(),
             'avg_precision':avg_precision,
 
             # From the ROC Curve
@@ -173,8 +178,8 @@ def evaluateModel(algorithm:object=None, scoring:str=None, folds:list[Tuple[np.n
         conf_matrix = np.array(calculatedMetrics['conf_matrix'])
 
         # Get the Precision-Recall curve
-        precision = np.array(calculatedMetrics['precision'])
-        recall = np.array(calculatedMetrics['recall'])
+        precisionScores = np.array(calculatedMetrics['precision_scores'])
+        recallScores = np.array(calculatedMetrics['recall_scores'])
         avg_precision = float(calculatedMetrics['avg_precision'])
 
         # Calculate ROC curve and AUC
@@ -186,7 +191,7 @@ def evaluateModel(algorithm:object=None, scoring:str=None, folds:list[Tuple[np.n
     fig, axs = plt.subplots(nrows=1, ncols=3, figsize=(12, 4))
 
     # Plot the Precision-Recall curve
-    axs[0].plot(recall, precision, label=f'Precision-Recall curve (AP = {avg_precision:.2f})', color='darkblue')
+    axs[0].plot(recallScores, precisionScores, label=f'Precision-Recall curve (AP = {avg_precision:.2f})', color='darkblue')
     axs[0].set_xlabel('Recall')
     axs[0].set_ylabel('Precision')
     axs[0].set_title('Precision-Recall Curve')
@@ -265,7 +270,7 @@ def convertMetricsToDataFrame(metricsList:list[list[str, dict]]=None, filePath:s
     firstDictionary = metricsList[0][1]
 
     # Hardcode the columns to later remove
-    columnsToRemove = ['conf_matrix', 'fpr', 'tpr', 'precision', 'recall']
+    columnsToRemove = ['accuracy_scores', 'balanced_accuracy_scores', 'f1_scores', 'fpr', 'tpr', 'precision', 'recall', 'conf_matrix']
     
     # Fetch all the columns to use in the dataframe
     df_columns = ['Algorithm'] + [columnName \
