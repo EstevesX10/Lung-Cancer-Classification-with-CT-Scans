@@ -138,23 +138,23 @@ def evaluateModel(algorithm:object=None, scoring:str=None, folds:list[Tuple[np.n
         calculatedMetrics.update({
             # (Average) Accuracy
             'avg_accuracy':avg_accuracy,
-            'accuracy_scores':accuracies.tolist(),
+            'accuracy_scores':accuracies,
 
             # (Average) Balanced Accuracy
             'avg_balanced_accuracy':avg_balanced_accuracy,
-            'balanced_accuracy_scores':balanced_accuracies.tolist(),
+            'balanced_accuracy_scores':balanced_accuracies,
 
             # (Average) F1 Score
             'avg_f1_score':avg_f1_score,
-            'f1_scores':f1_scores.tolist(),
+            'f1_scores':f1_scores,
 
             # (Average) log loss
             'avg_log_loss':avg_log_loss,
-            'log_loss_scores':log_losses.tolist(),
+            'log_loss_scores':log_losses,
             
             # (Average) Hamming loss
             'avg_hamming_loss':avg_hamming_loss,
-            'hamming_loss_scores':hamming_losses.tolist(),
+            'hamming_loss_scores':hamming_losses,
 
             # Average confusion matrix across all folds
             'conf_matrix':conf_matrix.tolist(),
