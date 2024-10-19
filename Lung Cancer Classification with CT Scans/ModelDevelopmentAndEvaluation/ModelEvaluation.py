@@ -4,55 +4,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
-from sklearn.base import (BaseEstimator, ClassifierMixin)
 from sklearn.metrics import (confusion_matrix, precision_recall_curve, average_precision_score, roc_curve, roc_auc_score, log_loss, balanced_accuracy_score, f1_score, hamming_loss)
-from .jsonFileManipulation import (dictToJsonFile, jsonFileToDict)
-
-def isModelTrained(model:BaseEstimator=None) -> bool:
-    """
-    # Description
-        -> Checks if a scikit-learn model has been trained.
-    -------------------------------------------------------
-    := param: model - The scikit-learn model instance.
-    := return: bool - True if the model has been trained, False otherwise.
-    """
-
-    # Defining a constraint for the model existence
-    if model is None:
-        raise ValueError("Missing a scikit-learn Model!")
-
-    # Making sure that the model is a instance of both BaseEstimator and ClassifierMixin
-    if not isinstance(model, (BaseEstimator, ClassifierMixin)):
-        raise ValueError("The model must be an instance of both BaseEstimator and ClassifierMixin.")
-
-    # Most scikit-learn models will have these attributes after training
-    trainedAttributes = ['coef_', 'intercept_', 'n_features_in_', 'classes_']
-    
-    # Check if any of the common trained attributes exist in the model
-    for attr in trainedAttributes:
-        if hasattr(model, attr):
-            return True
-    return False
-
-def isValidAlgorithm(algorithm:object=None, bestParams:dict=None) -> bool:
-    """
-    # Description
-        -> Check if a given algorithm can be instanciated.
-    ------------------------------------------------------
-    := param: algorithm - A machine learning model class (e.g., XGBoost or any classifier implementing fit/predict).
-    := param: bestParams - Best parameters to use when instanciating the model.
-    := return: Boolean value describing if the algorithm can be instanciated with the given parameters.
-    """
-    # Check if it's callable (can be instantiated)
-    if callable(algorithm):
-        try:
-            # Try to instantiate it
-            _ = algorithm(**bestParams)  
-            return True
-        except:
-            return False
-    else:
-        return False
+from .checkModelIntegrity import (isValidAlgorithm)
+from .jsonFileManagement import (dictToJsonFile, jsonFileToDict)
+from .pickleBestEstimatorsManagement import (loadBestEstimator)
 
 def evaluateModel(algorithm:object=None, bestParams:dict=None, scoring:str=None, folds:list[Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]]=None, modelPaths:dict=None, targetLabels:list[str]=None, title:str=None) -> dict:
     """
@@ -119,13 +74,16 @@ def evaluateModel(algorithm:object=None, bestParams:dict=None, scoring:str=None,
         f1_scores = []
         hamming_losses = []
         
-        # Check for algorithms that do not support predict_proba natively
-        if algorithm.__name__ in ['SVC']:
-            # Create a new instance of the machine learning model, enabling the calculation of y_pred_proba
-            model = algorithm(**bestParams, probability=True)
-        else:
-            # Create a new instance of the machine learning model
-            model = algorithm(**bestParams)
+        # # Check for algorithms that do not support predict_proba natively
+        # if algorithm.__name__ in ['SVC']:
+        #     # Create a new instance of the machine learning model, enabling the calculation of y_pred_proba
+        #     model = algorithm(**bestParams, probability=True)
+        # else:
+        #     # Create a new instance of the machine learning model
+        #     model = algorithm(**bestParams)
+
+        # Load the best estimator obtained from Grid Search
+        model = loadBestEstimator(modelPaths[algorithm.__name__][scoring]['bestEstimatorPath'])
 
         # Iterate through each fold
         for (X_train_fold, X_test_fold, y_train_fold, y_test_fold) in folds:

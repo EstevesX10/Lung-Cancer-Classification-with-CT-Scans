@@ -2,25 +2,16 @@ import pandas as pd
 from sklearn.base import (BaseEstimator)
 from sklearn.model_selection import (GridSearchCV)
 import xgboost as xgb
-from .jsonFileManipulation import (dictToJsonFile, jsonFileToDict)
+from .checkModelIntegrity import (isMachineLearningModel)
+from .jsonFileManagement import (dictToJsonFile, jsonFileToDict)
 from .pickleBestEstimatorsManagement import (saveBestEstimator)
 
-def isMachineLearningModel(model:object) -> bool:
-    """
-    # Description
-        -> This function checks if a given instance
-        corresponds to a scikit-learn or xgb machine learning model.
-    ----------------------------------------------------------------
-    := return: boolean value regarding the possible machine learning model object.
-    """
-    return isinstance(model, (BaseEstimator, xgb.XGBModel))
-
-def computeModelBestParameters(model:object, parameterGrid:dict, X:pd.DataFrame, y:pd.DataFrame, scoring:str, modelPathsConfig:dict, saveBestModel:bool) -> dict:
+def computeModelBestParameters(algorithm:object, parameterGrid:dict, X:pd.DataFrame, y:pd.DataFrame, scoring:str, modelPathsConfig:dict, saveBestModel:bool) -> dict:
     """
     # Description
         -> This funtion aims to calculate the best parameters of a given model using a Grid Search approach.
     ----------------------------------------------------------------
-    := param: model - Class type of a Machine Learning Algorithm which supports a BaseEstimator from Scikit-learn
+    := param: algorithm - Class type of a Machine Learning Algorithm which supports a BaseEstimator from Scikit-learn
     := param: parameterGrid - Hyperparameter values to consider when performing Grid Search.
     := param: X - Features from the dataset.
     := param: y - Target label from the dataset.
@@ -34,7 +25,7 @@ def computeModelBestParameters(model:object, parameterGrid:dict, X:pd.DataFrame,
         raise ValueError("Got Invalid Scoring!")
 
     # Instanciate the classifier
-    classifier = model(random_state=42)
+    classifier = algorithm(random_state=42)
 
     # Check if the given model is an instance of a Machine Learning Model
     if not isMachineLearningModel(classifier):
