@@ -5,18 +5,16 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 from sklearn.metrics import (confusion_matrix, precision_recall_curve, average_precision_score, roc_curve, roc_auc_score, log_loss, balanced_accuracy_score, f1_score, hamming_loss)
-from .checkModelIntegrity import (isValidAlgorithm)
 from .jsonFileManagement import (dictToJsonFile, jsonFileToDict)
 from .pickleBestEstimatorsManagement import (loadBestEstimator)
 
-def evaluateModel(algorithm:object=None, bestParams:dict=None, scoring:str=None, folds:list[Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]]=None, modelPaths:dict=None, targetLabels:list[str]=None, title:str=None) -> dict:
+def evaluateModel(algorithm:object=None, scoring:str=None, folds:list[Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]]=None, modelPaths:dict=None, targetLabels:list[str]=None, title:str=None) -> dict:
     """
     # Description
         -> Evaluate a machine learning model using a list of cross-validation 
         folds and plot the evaluation metrics.
     ---------------------------------------------------------------------------
     := param: algorithm - A machine learning model class (e.g., XGBoost or any classifier implementing fit/predict).
-    := param: bestParams - Best parameters to use when instanciating the model.
     := param: scoring - Evaluation metric to take into consideration when performing Grid Search.
     := param: folds - A list of tuples where each tuple contains (X_train, X_test, y_train, y_test) for each fold.
     := param: modelPaths - Dictionary with the paths to save the metrics associated with the model.
@@ -28,10 +26,6 @@ def evaluateModel(algorithm:object=None, bestParams:dict=None, scoring:str=None,
     # Check if a model was provided
     if algorithm is None:
         raise ValueError("Missing a model to evaluate!")
-    
-    # Check if the algorithm is valid
-    if not isValidAlgorithm(algorithm, bestParams):
-        raise ValueError("Got an Invalid Algorithm!")
 
     # Check if the given scoring is valid
     if scoring not in ['accuracy', 'balanced_accuracy', 'recall'] and scoring is not None:
@@ -73,14 +67,6 @@ def evaluateModel(algorithm:object=None, bestParams:dict=None, scoring:str=None,
         balanced_accuracies = []
         f1_scores = []
         hamming_losses = []
-        
-        # # Check for algorithms that do not support predict_proba natively
-        # if algorithm.__name__ in ['SVC']:
-        #     # Create a new instance of the machine learning model, enabling the calculation of y_pred_proba
-        #     model = algorithm(**bestParams, probability=True)
-        # else:
-        #     # Create a new instance of the machine learning model
-        #     model = algorithm(**bestParams)
 
         # Load the best estimator obtained from Grid Search
         model = loadBestEstimator(modelPaths[algorithm.__name__][scoring]['bestEstimatorPath'])
