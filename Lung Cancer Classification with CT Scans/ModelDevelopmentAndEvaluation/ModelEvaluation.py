@@ -123,19 +123,6 @@ def evaluateModel(algorithm:object=None, scoring:str=None, folds:list[Tuple[np.n
 
         # Update the calculated metrics dictionary
         calculatedMetrics.update({
-            # Average confusion matrix across all folds
-            'conf_matrix':conf_matrix.tolist(),
-
-            # From the Precision-Recall curve
-            'precision':precision.tolist(),
-            'recall':recall.tolist(),
-            'avg_precision':avg_precision,
-
-            # From the ROC Curve
-            'fpr':fpr.tolist(),
-            'tpr':tpr.tolist(),
-            'auc_score':auc_score,
-
             # Average Accuracy
             'avg_accuracy':avg_accuracy,
 
@@ -150,6 +137,19 @@ def evaluateModel(algorithm:object=None, scoring:str=None, folds:list[Tuple[np.n
             
             # Average Hamming loss
             'avg_hamming_loss':avg_hamming_loss,
+
+            # Average confusion matrix across all folds
+            'conf_matrix':conf_matrix.tolist(),
+
+            # From the Precision-Recall curve
+            'precision':precision.tolist(),
+            'recall':recall.tolist(),
+            'avg_precision':avg_precision,
+
+            # From the ROC Curve
+            'fpr':fpr.tolist(),
+            'tpr':tpr.tolist(),
+            'auc_score':auc_score
         })
 
         # Save the calculated metrics into a json file
