@@ -270,7 +270,7 @@ def convertMetricsToDataFrame(metricsList:list[list[str, dict]]=None, filePath:s
     firstDictionary = metricsList[0][1]
 
     # Hardcode the columns to later remove
-    columnsToRemove = ['accuracy_scores', 'balanced_accuracy_scores', 'f1_scores', 'fpr', 'tpr', 'precision', 'recall', 'conf_matrix']
+    columnsToRemove = ['accuracy_scores', 'balanced_accuracy_scores', 'f1_scores', 'log_loss_scores', 'hamming_loss_scores', 'fpr', 'tpr', 'precision_scores', 'recall_scores', 'conf_matrix']
     
     # Fetch all the columns to use in the dataframe
     df_columns = ['Algorithm'] + [columnName \
