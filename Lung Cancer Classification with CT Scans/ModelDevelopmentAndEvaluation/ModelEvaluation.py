@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
-from sklearn.metrics import (confusion_matrix, precision_recall_curve, average_precision_score, roc_curve, roc_auc_score, log_loss, balanced_accuracy_score, f1_score, hamming_loss)
+from sklearn.metrics import (confusion_matrix, precision_recall_curve, average_precision_score, roc_curve, roc_auc_score, log_loss, accuracy_score, balanced_accuracy_score, f1_score, hamming_loss)
 from .jsonFileManagement import (dictToJsonFile, jsonFileToDict)
 from .pickleBestEstimatorsManagement import (loadBestEstimator)
 
@@ -64,6 +64,7 @@ def evaluateModel(algorithm:object=None, scoring:str=None, folds:list[Tuple[np.n
         y_pred_proba_list = []
         y_test_list = []
         log_losses = []
+        accuracies = []
         balanced_accuracies = []
         f1_scores = []
         hamming_losses = []
@@ -84,6 +85,7 @@ def evaluateModel(algorithm:object=None, scoring:str=None, folds:list[Tuple[np.n
             conf_matrices.append(confusion_matrix(y_test_fold, y_pred_fold))
             y_pred_proba_list.append(y_pred_proba_fold)
             y_test_list.append(y_test_fold)
+            accuracies.append(accuracy_score(y_test_fold, y_pred_fold))
             balanced_accuracies.append(balanced_accuracy_score(y_test_fold, y_pred_fold))
             f1_scores.append(f1_score(y_test_fold, y_pred_fold))
             log_losses.append(log_loss(y_test_fold, y_pred_proba_fold))
@@ -104,6 +106,9 @@ def evaluateModel(algorithm:object=None, scoring:str=None, folds:list[Tuple[np.n
         fpr, tpr, _ = roc_curve(y_test_combined, y_pred_proba_combined)
         auc_score = roc_auc_score(y_test_combined, y_pred_proba_combined)
 
+        # Calculate the average accuracy
+        avg_accuracy = np.mean(accuracies)
+        
         # Calculate the average balanced accuracy
         avg_balanced_accuracy = np.mean(balanced_accuracies)
         
@@ -130,6 +135,9 @@ def evaluateModel(algorithm:object=None, scoring:str=None, folds:list[Tuple[np.n
             'fpr':fpr.tolist(),
             'tpr':tpr.tolist(),
             'auc_score':auc_score,
+
+            # Average Accuracy
+            'avg_accuracy':avg_accuracy,
 
             # Average Balanced Accuracy
             'avg_balanced_accuracy':avg_balanced_accuracy,
