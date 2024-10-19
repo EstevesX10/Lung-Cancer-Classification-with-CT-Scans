@@ -30,16 +30,11 @@ def computePCA(numberComponents:int, X:pd.DataFrame) -> Tuple[np.ndarray, np.nda
     # Get the principal Component Values
     pcValues = np.arange(pca.n_components_) + 1
 
-    # Get the PCA components
-    components = pca.components_
+    # number of components
+    numberPrinciapalComponents = pca.components_.shape[0]
 
-    # For each component find the most important feature
-    for i in range(pca.n_components_):
-        # Get current component
-        component = components[i]
-
-        # Order by the hightest weights in absolute value
-        mostImportantFeaturesIdxs = np.abs(component).argsort()[::-1][:numberComponents]
+    # Get the indices of the most important features on each component
+    mostImportantFeaturesIdxs = [np.abs(pca.components_[i]).argmax() for i in range(numberPrinciapalComponents)]
 
     # Return the indices of the most important features, the explained variance as well as the principal component values
     return (mostImportantFeaturesIdxs, explainedVariance, pcValues)
