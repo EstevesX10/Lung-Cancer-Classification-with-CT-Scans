@@ -21,7 +21,7 @@ def isValidAlgorithm(algorithm:object=None, bestParams:dict=None) -> bool:
     else:
         return False
     
-def isMachineLearningModel(model:object) -> bool:
+def isMachineLearningModel(model:object=None) -> bool:
     """
     # Description
         -> This function checks if a given instance
@@ -29,6 +29,11 @@ def isMachineLearningModel(model:object) -> bool:
     ----------------------------------------------------------------
     := return: boolean value regarding the possible machine learning model object.
     """
+
+    # Defining a constraint for the model existence
+    if model is None:
+        raise ValueError("Missing a model!")
+
     return isinstance(model, (BaseEstimator, xgb.XGBModel))
 
 def isModelTrained(model:BaseEstimator=None) -> bool:
