@@ -131,7 +131,8 @@ def loadModelsParameterGrids() -> dict:
             'kernel': ['linear', 'rbf', 'poly'],
             'gamma': ['scale', 'auto'],
             'degree': [2, 3, 4],
-            'coef0': [0.0, 0.1, 0.5]
+            'coef0': [0.0, 0.1, 0.5],
+            'probability': [True]
         },
 
         'RandomForestClassifier':{
