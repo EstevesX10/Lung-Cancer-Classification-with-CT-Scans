@@ -1,0 +1,8 @@
+{
+    "C": 10,
+    "coef0": 0.5,
+    "degree": 2,
+    "gamma": "auto",
+    "kernel": "poly",
+    "probability": true
+}
