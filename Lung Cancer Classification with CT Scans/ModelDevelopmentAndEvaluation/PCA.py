@@ -7,10 +7,10 @@ def computePCA(numberComponents:int, X:pd.DataFrame) -> Tuple[np.ndarray, np.nda
     """
     # Description
         -> This function focuses on performing the principal component analysis
-        of a dataframe composed of features
+        of a dataframe composed of features.
     ---------------------------------------------------------------------------
-    := param: numberComponents - Number of components to be considered
-    := param: X - Features Dataset
+    := param: numberComponents - Number of components to be considered.
+    := param: X - Features Dataset.
     := return:  mostImportantFeatures - Features indices to maintain from the original dataframe.
                 explainedVariance - Array with each feature variance contribution on the dataset.
                 pcValues - Principal Component Values [In a Array].

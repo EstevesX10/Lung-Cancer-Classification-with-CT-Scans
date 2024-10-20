@@ -3,7 +3,7 @@ from sklearn.base import (BaseEstimator)
 from sklearn.model_selection import (GridSearchCV)
 import xgboost as xgb
 from .checkModelIntegrity import (isMachineLearningModel)
-from .jsonFileManagement import (dictToJsonFile, jsonFileToDict)
+from .jsonFileManagement import (dictToJsonFile)
 from .pickleBestEstimatorsManagement import (saveBestEstimator)
 
 def computeModelBestParameters(algorithm:object, parameterGrid:dict, X:pd.DataFrame, y:pd.DataFrame, scoring:str, modelPathsConfig:dict, saveBestModel:bool) -> dict:
@@ -11,7 +11,7 @@ def computeModelBestParameters(algorithm:object, parameterGrid:dict, X:pd.DataFr
     # Description
         -> This funtion aims to calculate the best parameters of a given model using a Grid Search approach.
     ----------------------------------------------------------------
-    := param: algorithm - Class type of a Machine Learning Algorithm which supports a BaseEstimator from Scikit-learn
+    := param: algorithm - Class type of a Machine Learning Algorithm which supports a BaseEstimator from Scikit-learn.
     := param: parameterGrid - Hyperparameter values to consider when performing Grid Search.
     := param: X - Features from the dataset.
     := param: y - Target label from the dataset.

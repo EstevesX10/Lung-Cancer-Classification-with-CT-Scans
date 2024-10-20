@@ -7,11 +7,11 @@ def plotScreeGraph(pcValues:np.ndarray, explainedVariance:np.ndarray) -> None:
     """
     # Description
         -> The plotScreeGraph function simply creates a plot
-        showcasing the influence of Features in the datasets variance
+        showcasing the influence of Features in the datasets variance.
     -----------------------------------------------------------------
-    := param: pcValues - Principal Component Values
-    := param: explainedVariance - Array with each feature variance contribution on the dataset
-    := return: None, since we are merely plotting a graph
+    := param: pcValues - Principal Component Values.
+    := param: explainedVariance - Array with each feature variance contribution on the dataset.
+    := return: None, since we are merely plotting a graph.
     """
 
     # Create figure with specific size

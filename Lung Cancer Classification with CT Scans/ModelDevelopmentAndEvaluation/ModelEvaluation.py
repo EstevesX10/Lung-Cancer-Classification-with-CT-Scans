@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
-from sklearn.metrics import (confusion_matrix, precision_recall_curve, average_precision_score, roc_curve, roc_auc_score, log_loss, accuracy_score, balanced_accuracy_score, f1_score, hamming_loss)
+from sklearn.metrics import (accuracy_score, balanced_accuracy_score, f1_score, log_loss, hamming_loss, confusion_matrix, precision_recall_curve, average_precision_score, roc_curve, roc_auc_score)
 from .jsonFileManagement import (dictToJsonFile, jsonFileToDict)
 from .pickleBestEstimatorsManagement import (loadBestEstimator)
 

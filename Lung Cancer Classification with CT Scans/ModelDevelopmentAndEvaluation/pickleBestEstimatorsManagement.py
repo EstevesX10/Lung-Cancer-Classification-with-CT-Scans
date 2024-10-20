@@ -26,7 +26,7 @@ def saveBestEstimator(bestEstimator:object=None, filePath:str=None) -> None:
 def loadBestEstimator(filePath:str=None) -> object:
     """
     # Description
-        -> Loads a previously saved best estimator
+        -> Loads a previously saved best estimator.
     ----------------------------------------------
     := param: filePath - File path to the estimator.
     := return: Best Estimator.

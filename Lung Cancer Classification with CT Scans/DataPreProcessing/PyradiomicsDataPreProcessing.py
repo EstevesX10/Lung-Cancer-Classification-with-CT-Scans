@@ -8,12 +8,12 @@ def refactorPyradiomicsDataset(df_pyradiomics:pd.DataFrame, pyradiomicsRefactore
     # Description
         -> This function aims to refactor the pyradiomics dataset so that we take into
         consideration the mode / average values for all the nodules features parting
-        from the annotations of the nodules provided by the pyradiomics_feature dataset
-
-    := param: df_pyradiomics - Extracted dataframe with the raw information
-    := param: pyradiomicsFeaturesFilename - Path to save the refactored version of the dataset
-    := param: verbose - Boolean that enables valuable information during the function execution (reagarding the data being dealt with)
-    := return: Pandas dataframe with a refactored version of the pyradiomics dataframe
+        from the annotations of the nodules provided by the pyradiomics_feature dataset.
+    -----------------------------------------------------------------------------------
+    := param: df_pyradiomics - Extracted dataframe with the raw information.
+    := param: pyradiomicsFeaturesFilename - Path to save the refactored version of the dataset.
+    := param: verbose - Boolean that enables valuable information during the function execution (reagarding the data being dealt with).
+    := return: Pandas dataframe with a refactored version of the pyradiomics dataframe.
     """
     # Define the columns for the refactored pyradiomics dataset
     cols = ['nodule_id'] + list(df_pyradiomics.columns)
@@ -124,10 +124,10 @@ def mapTuplesInsideDataframe(df:pd.DataFrame, columnsToParse:list, verbose:bool=
     # Description
         -> Maps the tuple-like strings from multiple columns inside
         the DataFrame into separate columns for each one of its elements.
-        
+    ---------------------------------------------------------------------
     := param: df - The input DataFrame.
     := param: columnsToParse - A list of the columns whose content is composed by tuple-like strings.
-    := param: verbose - Boolean value which decides whether or not to provide additional information during the function execution
+    := param: verbose - Boolean value which decides whether or not to provide additional information during the function execution.
     := return: The DataFrame with new columns added for each tuple-like string.
     """
     

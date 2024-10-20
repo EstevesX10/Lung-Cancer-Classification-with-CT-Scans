@@ -11,15 +11,15 @@ def extractPyradiomicsFeatures(Lidc_IdrFilesPath:str=None,
     """
     # Description
         -> This script iterates through all the patient's folders extracting important data from the .dcm files into a pyradiomics_features.csv file
-    
-    := param: Lidc_IdrFilesPath - Global path for files from the LIDC-IDR dataset
-    := param: pyradiomicsDcmScriptPath - Path to the pyradiomics-dcm.py script used to extract features from the images on the dataset [Available on the pyradiomics GitHub Repository: https://github.com/AIM-Harvard/pyradiomics/tree/master/labs/pyradiomics-dcm]
-    := param: pyradiomicsParamsFilePath - Path for the parameters file with the Pyradiomics feature extractor positional arguments [Available on the pyradiomics GitHub Repository: https://github.com/AIM-Harvard/pyradiomics/tree/master/labs/pyradiomics-dcm]
-    := param: pyradiomicsFeatureDictFilePath - Path for the features to be considered during the extraction [Available on the pyradiomics GitHub Repository: https://github.com/AIM-Harvard/pyradiomics/blob/master/labs/pyradiomics-dcm/resources/featuresDict_IBSIv7.tsv]
-    := param: startPatient - Number of the Patient to start the extraction from [Allows a better feature extraction management]
-    := param: outputDirectoryPath - Path to the directory for saving the resulting DICOM file
-    := param: tempDirectoryPath - Path to the directory to store intermediate results [Including the pyradiomic_features.csv]
-    := return: None, since we are simply extracting data from the LIDC-IDR dataset images
+    ------------------------------------------------------------------------------------------------------------------------------------------------
+    := param: Lidc_IdrFilesPath - Global path for files from the LIDC-IDR dataset.
+    := param: pyradiomicsDcmScriptPath - Path to the pyradiomics-dcm.py script used to extract features from the images on the dataset [Available on the pyradiomics GitHub Repository: https://github.com/AIM-Harvard/pyradiomics/tree/master/labs/pyradiomics-dcm].
+    := param: pyradiomicsParamsFilePath - Path for the parameters file with the Pyradiomics feature extractor positional arguments [Available on the pyradiomics GitHub Repository: https://github.com/AIM-Harvard/pyradiomics/tree/master/labs/pyradiomics-dcm].
+    := param: pyradiomicsFeatureDictFilePath - Path for the features to be considered during the extraction [Available on the pyradiomics GitHub Repository: https://github.com/AIM-Harvard/pyradiomics/blob/master/labs/pyradiomics-dcm/resources/featuresDict_IBSIv7.tsv].
+    := param: startPatient - Number of the Patient to start the extraction from [Allows a better feature extraction management].
+    := param: outputDirectoryPath - Path to the directory for saving the resulting DICOM file.
+    := param: tempDirectoryPath - Path to the directory to store intermediate results [Including the pyradiomic_features.csv].
+    := return: None, since we are simply extracting data from the LIDC-IDR dataset images.
     """
 
     # Add Restrictions to the Script Execution

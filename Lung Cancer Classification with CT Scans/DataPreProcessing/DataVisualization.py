@@ -2,13 +2,12 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
-import seaborn as sns
 
 def pastelizeColor(c:tuple, weight:float=None) -> np.ndarray:
     """
     # Description
         -> Lightens the input color by mixing it with white, producing a pastel effect.
-    
+    -----------------------------------------------------------------------------------
     := param: c - Original color.
     := param: weight - Amount of white to mix (0 = full color, 1 = full white).
     """
@@ -26,11 +25,11 @@ def plotFeatureDistribution(df:pd.DataFrame=None, feature:str=None, forceCategor
     """
     # Description
         -> This function plots the distribution of a feature (column) in a dataset.
-
-    := param: df - Pandas DataFrame containing the dataset
-    := param: feature - Feature of the dataset to plot
-    := param: forceCategorical - Forces a categorical analysis on a numerical feature
-    := param: featureDecoder - Dictionary with the conversion between the column value and its label [From Integer to String]
+    -------------------------------------------------------------------------------
+    := param: df - Pandas DataFrame containing the dataset.
+    := param: feature - Feature of the dataset to plot.
+    := param: forceCategorical - Forces a categorical analysis on a numerical feature.
+    := param: featureDecoder - Dictionary with the conversion between the column value and its label [From Integer to String].
     """
 
     # Check if a dataframe was provided

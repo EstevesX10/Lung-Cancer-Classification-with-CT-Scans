@@ -12,9 +12,9 @@ def createPylidcInitialDataframe() -> pd.DataFrame:
     # Description
         -> This function aims to create a empty dataframe 
         with the proper columns to store the extracted features 
-        from the pylidc package
-
-    := return: Empty pandas dataframe
+        from the pylidc package.
+    -----------------------------------------------------------
+    := return: Empty pandas dataframe.
     """
 
     # Define the initial structure of the Dataframe
@@ -44,9 +44,9 @@ def extractPylidcFeatures(pylidcFeaturesFilename:str) -> pd.DataFrame:
            the CT data scans through the Pylidc package.
            It will find the mode / mean values for each nodule's 
            annotations throughout all the available patients.
-
-    := param: pylidcFeaturesFilename - Path to save the final dataset to
-    := return: df - Dataframe with the propely formated results
+    ----------------------------------------------------------------
+    := param: pylidcFeaturesFilename - Path to save the final dataset.
+    := return: df - Dataframe with the propely formated results.
     """
     # Initialize the dataframe
     df = createPylidcInitialDataframe()
@@ -126,13 +126,13 @@ def processIndeterminateNodules(df_pylidc:pd.DataFrame, method:str) -> pd.DataFr
         -> This function processes lung nodules labeled as 'Indeterminate' (malignancy level 3) in different ways based 
         on the selected method. You can either remove these cases or use clustering (K-Means) or probabilistic (Naive Bayes)
         approaches to assign them to one of the remaining malignancy classes (1, 2, 4, or 5).
-
+    ------------------------------------------------------------------------------------------------------------------------
     := param: df_pylidc - The input DataFrame containing lung nodule data.
     := param: method - The method to process indeterminate nodules. Options are:
                         - "remove": Removes all entries with malignancy level 3.
                         - "kmeans": Uses K-Means clustering to assign indeterminate nodules to an existing class.
                         - "gaussian": Uses Naive Bayes to assign indeterminate nodules to an existing class based on probabilistic predictions.
-    := return: A DataFrame where indeterminate nodules are either removed or reassigned to one of the non-indeterminate malignancy classes
+    := return: A DataFrame where indeterminate nodules are either removed or reassigned to one of the non-indeterminate malignancy classes.
     """
 
     # Check if the given method is valid
@@ -226,7 +226,7 @@ def binarizeTargetLabel(df_pylidc:pd.DataFrame, method:str, filename:str) -> pd.
         where nodules with malignancy levels 1 or 2 are labeled as 0 (low malignancy) and those with levels 4 or 5 
         are labeled as 1 (high malignancy). The indeterminate cases (malignancy level 3) can be processed based on 
         the specified method before binarization. The final binarized dataset can also be saved to a file.
-
+    --------------------------------------------------------------------------------------------------------------
     := param: df_pylidc - The input DataFrame containing lung nodule data.
     := param: method - The method to process indeterminate nodules. Options are:
                         - "remove": Removes all entries with malignancy level 3.

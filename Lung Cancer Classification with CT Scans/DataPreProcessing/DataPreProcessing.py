@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import (StratifiedKFold)
 from sklearn.preprocessing import (MinMaxScaler, StandardScaler)
 
 def performDataNormalization(df:pd.DataFrame, method:str=None, verbose:bool=False) -> pd.DataFrame:
@@ -9,12 +8,12 @@ def performDataNormalization(df:pd.DataFrame, method:str=None, verbose:bool=Fals
         -> This function aims to normalize float64 features from the extracted datasets
         Since we are working with already encoded categorical features we must
         take them into consideration during normalization, therefore the need to 
-        indicate the columns to normalize
-    
-    := param: df - DataFrame to be normalized
-    := param: method - Which data preprocessing technique to utilize [Either Normalization (Min-Max Scaling) or Standardization (Z-Score Scaling)]
-    := param: verbose - Flag that determines whether ot not to include additional information regarding the function execution
-    := return: A new dataframe with the proper data normalized
+        indicate the columns to normalize.
+    -----------------------------------------------------------------------------------
+    := param: df - DataFrame to be normalized.
+    := param: method - Which data preprocessing technique to utilize [Either Normalization (Min-Max Scaling) or Standardization (Z-Score Scaling)].
+    := param: verbose - Flag that determines whether ot not to include additional information regarding the function execution.
+    := return: A new dataframe with the proper data normalized.
     """
 
     # Add a default value to the method to use
@@ -47,11 +46,11 @@ def removeHighlyCorrelatedFeatures(df:pd.DataFrame, correlationThreshold:float=0
     # Description
         -> Removes highly correlated features from a DataFrame 
         based on the specified correlation threshold.
-        
-    := param: df - The input DataFrame
-    := param: correlation_threshold - The threshold above which features will be considered highly correlated
-    := param: verbose - Whether to print verbose output showing the features being dropped
-    := return: A DataFrame with highly correlated features removed
+    ----------------------------------------------------------
+    := param: df - The input DataFrame.
+    := param: correlation_threshold - The threshold above which features will be considered highly correlated.
+    := param: verbose - Whether to print verbose output showing the features being dropped.
+    := return: A DataFrame with highly correlated features removed.
     """
     
     # Compute the correlation matrix

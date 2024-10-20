@@ -8,7 +8,7 @@ def stratifiedGroupSplit(preProcessedDataFrame:pd.DataFrame, useSMOTE:bool=None,
         -> Perform Stratified Group Split on a dataset.
         This function ensures that the target variable's class distribution is 
         preserved across train and test sets while ensuring that groups are not split between them.
-
+    -----------------------------------------------------------------------------------------------
     := param: preProcessedDataFrame - Pre-processed dataframe.
     := param: useSMOTE - Perform synthetic oversampling on each fold's training set.
     := param: test_size - Proportion of the test size to be considered.
@@ -66,7 +66,7 @@ def stratifiedGroupKFoldSplit(preProcessedDataFrame:pd.DataFrame, useSMOTE:bool=
         -> Perform Stratified Group K-Fold cross-validation on a dataset.
         This function ensures that the target variable's class distribution is preserved across folds 
         (stratification) while ensuring that groups are not split between training and testing sets.
-
+    -------------------------------------------------------------------------------------------------
     := param: preProcessedDataFrame - Pre-processed dataframe.
     := param: useSMOTE - Perform synthetic oversampling on each fold's training set.
     := param: n_splits - Number of folds for k-fold cross-validation.

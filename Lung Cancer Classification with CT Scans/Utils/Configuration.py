@@ -2,6 +2,8 @@ def loadConfig() -> dict:
     """
     # Description
         -> This function aims to store all the configuration related parameters used inside the project.
+    ----------------------------------------------------------------------------------------------------
+    := return: Dictionary with some of the important file paths of the project.
     """
     return {
         'pylidcFeaturesFilename':'./Datasets/pylidc_features.csv',
@@ -17,6 +19,8 @@ def loadModelsPaths() -> dict:
     """
     # Description
         -> Loads a dictionary with important paths when analysing a model's performance.
+    ------------------------------------------------------------------------------------
+    := return: Dictionary with all the paths used to stored model related data.
     """
     return {
         'SVC':{
@@ -145,6 +149,8 @@ def loadModelsParameterGrids() -> dict:
     # Description
         -> This function focuses on storing the possible paramaters configurations of
         some machine learning algorithms to be used alongside GridSearch.
+    ---------------------------------------------------------------------------------
+    := return: Dictionary with all the parameter grids used on each model Grid Search.
     """
     return {
         'XGBClassifier':{
