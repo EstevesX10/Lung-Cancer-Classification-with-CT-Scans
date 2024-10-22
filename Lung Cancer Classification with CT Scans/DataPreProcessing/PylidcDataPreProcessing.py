@@ -130,13 +130,14 @@ def processIndeterminateNodules(df_pylidc:pd.DataFrame, method:str) -> pd.DataFr
     := param: df_pylidc - The input DataFrame containing lung nodule data.
     := param: method - The method to process indeterminate nodules. Options are:
                         - "remove": Removes all entries with malignancy level 3.
+                        - "moveToMalignant": Moves all the indeterminate entries target labels to Highly Suspicious.
                         - "kmeans": Uses K-Means clustering to assign indeterminate nodules to an existing class.
                         - "gaussian": Uses Naive Bayes to assign indeterminate nodules to an existing class based on probabilistic predictions.
     := return: A DataFrame where indeterminate nodules are either removed or reassigned to one of the non-indeterminate malignancy classes.
     """
 
     # Check if the given method is valid
-    if method not in ["remove", "kmeans", "gaussian"]:
+    if method not in ["remove", "kmeans", "gaussian", "moveToMalignant"]:
         raise ValueError('Invalid Method Introduced!')
     
     if method == "remove":
@@ -144,6 +145,11 @@ def processIndeterminateNodules(df_pylidc:pd.DataFrame, method:str) -> pd.DataFr
         df_binary_pylidc = df_pylidc.loc[df_pylidc['malignancy'] != 3]
         return df_binary_pylidc
     
+    elif method == "moveToMalignant":
+        # Update the indeterminate nodules to be considered malignant
+        df_binary_pylidc['malignancy'] = df_binary_pylidc['malignancy'].apply(lambda x: 5 if x == 0 else x)
+        return df_binary_pylidc
+
     # Fetch the Id column
     idColumn = df_pylidc.columns[0]
     ids = df_pylidc[idColumn]
