@@ -62,7 +62,7 @@ The ultimate objective of this automated classification system is to ``aid in cl
 
 ### Datasets
 
-If you're interested in trying this project yourself, you'll need access to the ``complete datasets`` we've created. Since GitHub has file size limits, we've made the full dataset available [here](https://drive.google.com/drive/folders/1X9DI72QTb86kFYYeuGSrktsM3eE1_pVt?usp=drive_link).
+If you're interested in trying this project yourself, you'll need access to the ``complete datasets`` we've created. Since GitHub has **file size limits**, we've made them all available [here](https://drive.google.com/drive/folders/1X9DI72QTb86kFYYeuGSrktsM3eE1_pVt?usp=drive_link).
 
 ## Project Results
 
@@ -70,13 +70,15 @@ If you're interested in trying this project yourself, you'll need access to the 
 
 Here’s a quick overview of how the ``nodular malignancy`` in the dataset is **distributed across five different levels of malignancy**.
 
+<br/>
+
 <div align="center">
     <img src="./Lung Cancer Classification with CT Scans/ExperimentalResults/DataEvaluation/InitialTargetDistribution.png" width="80%" height="80%" />
 </div>
 
 ### Machine Learning Models Evaluation
 
-Here are some of the results obtained from various selected machine learning algorithms, which we found to be the most interesting based on their balanced accuracy scores.
+Here are some of the results obtained from various ``selected machine learning algorithms``, which we found to be the most interesting based on their **balanced accuracy scores**.
 
 <table width="100%">
   <tr>
@@ -88,12 +90,12 @@ Here are some of the results obtained from various selected machine learning alg
   </tr>
 
   <tr>
-    <td width="5%">
+    <td width="30%">
         <div align="center">
         <b>Algorithm</b>
         </div>
     </td>
-    <td width="80%">
+    <td width="70%">
         <div align="center">
         <b>Metrics</b>
         </div>
@@ -101,48 +103,48 @@ Here are some of the results obtained from various selected machine learning alg
   </tr>
 
   <tr>
-    <td width="5%">
+    <td width="30%">
         <div align="center">
         <b>SVM</b>
         </div>
     </td>
-    <td width="80%">
+    <td width="70%">
         <p align="center"><img src="./Lung Cancer Classification with CT Scans/ExperimentalResults/SVM/balanced_accuracy/evaluationPlot.png"/>
         </p>
     </td>
   </tr>
 
   <tr>
-    <td width="15%">
+    <td width="30%">
         <div align="center">
         <b>Random Forest</b>
         </div>
     </td>
-    <td width="85%">
+    <td width="70%">
         <p align="center"><img src="./Lung Cancer Classification with CT Scans/ExperimentalResults/RandomForest/balanced_accuracy/evaluationPlot.png"/>
         </p>
     </td>
   </tr>
 
   <tr>
-    <td width="15%">
+    <td width="30%">
         <div align="center">
         <b>XGBoost</b>
         </div>
     </td>
-    <td width="85%">
+    <td width="70%">
         <p align="center"><img src="./Lung Cancer Classification with CT Scans/ExperimentalResults/XGBoost/balanced_accuracy/evaluationPlot.png"/>
         </p>
     </td>
   </tr>
 
   <tr>
-    <td width="15%">
+    <td width="30%">
         <div align="center">
         <b>Voting Classifier</b>
         </div>
     </td>
-    <td width="85%">
+    <td width="70%">
         <p align="center"><img src="./Lung Cancer Classification with CT Scans/ExperimentalResults/VotingClassifier/balanced_accuracy/evaluationPlot.png"/>
         </p>
     </td>
@@ -153,8 +155,10 @@ Here are some of the results obtained from various selected machine learning alg
 
 To better illustrate the **performance differences** between the models, let's examine their respective ``critical differences diagram``.
 
+<br/>
+
 <div align="center">
-    <img src="./Lung Cancer Classification with CT Scans/ExperimentalResults/DataEvaluation/CriticalDifferencesDiagram.png" width="80%" height="80%" />
+    <img src="./Lung Cancer Classification with CT Scans/ExperimentalResults/DataEvaluation/CriticalDifferencesDiagram.png" width="70%" height="80%" />
 </div>
 
 <br/>
