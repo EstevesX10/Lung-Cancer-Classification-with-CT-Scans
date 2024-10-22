@@ -69,6 +69,10 @@ def evaluateModel(algorithm:object=None, scoring:str=None, folds:list[Tuple[np.n
         f1_scores = []
         hamming_losses = []
 
+        # Defining auxiliar lists to store the amount of malignant / benign cases per fold
+        malignantCases = []
+        benignCases = []
+
         # Check if we are to create a voting classifier with the SVM, Random Forest and XGBoost with the same scoring method
         if algorithm.__name__ == "VotingClassifier":
             model = algorithm(estimators=[(
@@ -104,12 +108,24 @@ def evaluateModel(algorithm:object=None, scoring:str=None, folds:list[Tuple[np.n
             log_losses.append(log_loss(y_test_fold, y_pred_proba_fold))
             hamming_losses.append(hamming_loss(y_test_fold, y_pred_fold))
 
+            # Add the amount of bening and malignant cases
+            benignCases.append(np.sum(y_test_fold == 0))
+            malignantCases.append(np.sum(y_test_fold == 1))
+
         # Calculate average confusion matrix across all folds
         conf_matrix = np.average(conf_matrices, axis=0)
 
         # Concatenate results for ROC curve and Precision-Recall Curve
         y_test_combined = np.concatenate(y_test_list)
         y_pred_proba_combined = np.concatenate(y_pred_proba_list)
+
+        # Scale the confusion matrix to percentages (%)
+        totalBenignCases = np.sum(benignCases)/len(folds)
+        totalMalignantCases = np.sum(malignantCases)/len(folds)
+        
+        # Since it is a binary classification problem we can do this
+        conf_matrix[0,:] = np.round(conf_matrix[0,:]/totalBenignCases*100, 3)
+        conf_matrix[1,:] = np.round(conf_matrix[1,:]/totalMalignantCases*100, 3)
 
         # Calculate Precision-Recall curve
         precisionScores, recallScores, _ = precision_recall_curve(y_test_combined, y_pred_proba_combined)
@@ -207,8 +223,8 @@ def evaluateModel(algorithm:object=None, scoring:str=None, folds:list[Tuple[np.n
 
     # Plot Confusion Matrix
     df_conf_matrix = pd.DataFrame(conf_matrix, index=targetLabels, columns=targetLabels)
-    sns.heatmap(df_conf_matrix, annot=True, cmap='Blues', fmt='g', ax=axs[2])
-    axs[2].set_title('Confusion Matrix')
+    sns.heatmap(df_conf_matrix, annot=True, cmap='Blues', fmt='.2f', ax=axs[2])
+    axs[2].set_title('Confusion Matrix (%)')
     axs[2].set_xlabel('Predicted Labels')
     axs[2].set_ylabel('True Labels')
 
