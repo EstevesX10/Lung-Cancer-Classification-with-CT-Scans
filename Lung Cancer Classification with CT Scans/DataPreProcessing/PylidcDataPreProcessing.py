@@ -136,26 +136,29 @@ def processIndeterminateNodules(df_pylidc:pd.DataFrame, method:str) -> pd.DataFr
     := return: A DataFrame where indeterminate nodules are either removed or reassigned to one of the non-indeterminate malignancy classes.
     """
 
+    # Make a copy of the dataset received
+    df_pylidc_copy = df_pylidc.copy()
+
     # Check if the given method is valid
     if method not in ["remove", "kmeans", "gaussian", "moveToMalignant"]:
         raise ValueError('Invalid Method Introduced!')
     
     if method == "remove":
         # Prune the indeterminate nodules
-        df_binary_pylidc = df_pylidc.loc[df_pylidc['malignancy'] != 3]
+        df_binary_pylidc = df_pylidc_copy.loc[df_pylidc['malignancy'] != 3]
         return df_binary_pylidc
     
     elif method == "moveToMalignant":
         # Update the indeterminate nodules to be considered malignant
-        df_binary_pylidc['malignancy'] = df_binary_pylidc['malignancy'].apply(lambda x: 5 if x == 0 else x)
-        return df_binary_pylidc
+        df_pylidc_copy['malignancy'] = df_pylidc_copy['malignancy'].replace(3, 5)
+        return df_pylidc_copy
 
     # Fetch the Id column
-    idColumn = df_pylidc.columns[0]
-    ids = df_pylidc[idColumn]
+    idColumn = df_pylidc_copy.columns[0]
+    ids = df_pylidc_copy[idColumn]
 
     # Drop the ID column
-    df = df_pylidc.drop(columns=idColumn)
+    df = df_pylidc_copy.drop(columns=idColumn)
 
     if method == "kmeans":
         # Get the dataset entries with a malignancy of 3 ('Indeterminate')
