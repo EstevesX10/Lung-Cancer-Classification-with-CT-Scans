@@ -70,8 +70,6 @@ If you're interested in trying this project yourself, you'll need access to the 
 
 Here’s a quick overview of how the ``nodular malignancy`` in the dataset is **distributed across five different levels of malignancy**.
 
-<br/>
-
 <div align="center">
     <img src="./Lung Cancer Classification with CT Scans/ExperimentalResults/DataEvaluation/InitialTargetDistribution.png" width="70%" height="70%" />
 </div>
@@ -155,8 +153,6 @@ Here are some of the results obtained from various ``selected machine learning a
 
 To better illustrate the **performance differences** between the models, let's examine their respective ``critical differences diagram``.
 
-<br/>
-
 <div align="center">
     <img src="./Lung Cancer Classification with CT Scans/ExperimentalResults/DataEvaluation/CriticalDifferencesDiagram.png" width="70%" height="70%" />
 </div>
@@ -168,7 +164,7 @@ In this diagram, **XGBoost and the Voting Classifier share the same rank (2.2)**
 ## Authorship
 
 - **Authors** &#8594; [Francisco Macieira](https://github.com/franciscovmacieira), [Gonçalo Esteves](https://github.com/EstevesX10) and [Nuno Gomes](https://github.com/NightF0x26)
-- **Course** &#8594; Laboratory AI and DS [CC3044]
+- **Course** &#8594; Laboratory of AI and DS [[CC3044](https://sigarra.up.pt/fcup/en/ucurr_geral.ficha_uc_view?pv_ocorrencia_id=546533)]
 - **University** &#8594; Faculty of Sciences, University of Porto
  
 <div align="right">
