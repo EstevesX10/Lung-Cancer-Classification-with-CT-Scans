@@ -90,12 +90,12 @@ Here are some of the results obtained from various ``selected machine learning a
   </tr>
 
   <tr>
-    <td width="30%">
+    <td width="20%">
         <div align="center">
         <b>Algorithm</b>
         </div>
     </td>
-    <td width="70%">
+    <td width="80%">
         <div align="center">
         <b>Metrics</b>
         </div>
@@ -103,48 +103,48 @@ Here are some of the results obtained from various ``selected machine learning a
   </tr>
 
   <tr>
-    <td width="30%">
+    <td width="20%">
         <div align="center">
         <b>SVM</b>
         </div>
     </td>
-    <td width="70%">
+    <td width="80%">
         <p align="center"><img src="./Lung Cancer Classification with CT Scans/ExperimentalResults/SVM/balanced_accuracy/evaluationPlot.png"/>
         </p>
     </td>
   </tr>
 
   <tr>
-    <td width="30%">
+    <td width="20%">
         <div align="center">
         <b>Random Forest</b>
         </div>
     </td>
-    <td width="70%">
+    <td width="80%">
         <p align="center"><img src="./Lung Cancer Classification with CT Scans/ExperimentalResults/RandomForest/balanced_accuracy/evaluationPlot.png"/>
         </p>
     </td>
   </tr>
 
   <tr>
-    <td width="30%">
+    <td width="20%">
         <div align="center">
         <b>XGBoost</b>
         </div>
     </td>
-    <td width="70%">
+    <td width="80%">
         <p align="center"><img src="./Lung Cancer Classification with CT Scans/ExperimentalResults/XGBoost/balanced_accuracy/evaluationPlot.png"/>
         </p>
     </td>
   </tr>
 
   <tr>
-    <td width="30%">
+    <td width="20%">
         <div align="center">
         <b>Voting Classifier</b>
         </div>
     </td>
-    <td width="70%">
+    <td width="80%">
         <p align="center"><img src="./Lung Cancer Classification with CT Scans/ExperimentalResults/VotingClassifier/balanced_accuracy/evaluationPlot.png"/>
         </p>
     </td>
