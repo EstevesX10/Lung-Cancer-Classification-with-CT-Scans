@@ -73,7 +73,7 @@ Here’s a quick overview of how the ``nodular malignancy`` in the dataset is **
 <br/>
 
 <div align="center">
-    <img src="./Lung Cancer Classification with CT Scans/ExperimentalResults/DataEvaluation/InitialTargetDistribution.png" width="80%" height="80%" />
+    <img src="./Lung Cancer Classification with CT Scans/ExperimentalResults/DataEvaluation/InitialTargetDistribution.png" width="70%" height="70%" />
 </div>
 
 ### Machine Learning Models Evaluation
@@ -158,7 +158,7 @@ To better illustrate the **performance differences** between the models, let's e
 <br/>
 
 <div align="center">
-    <img src="./Lung Cancer Classification with CT Scans/ExperimentalResults/DataEvaluation/CriticalDifferencesDiagram.png" width="70%" height="80%" />
+    <img src="./Lung Cancer Classification with CT Scans/ExperimentalResults/DataEvaluation/CriticalDifferencesDiagram.png" width="70%" height="70%" />
 </div>
 
 <br/>
