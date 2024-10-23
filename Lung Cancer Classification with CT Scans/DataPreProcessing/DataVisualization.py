@@ -139,7 +139,7 @@ def plotFeatureDistribution(df:pd.DataFrame=None, feature:str=None, forceCategor
             colors = [pastelizeColor(cmap(i / (len(valueCounts) - 1))) for i in range(len(valueCounts))]
 
             # Plot the bars with gradient colors
-            plt.bar(valueCounts.index.astype(str), valueCounts.values, color=colors, edgecolor='lightgrey', alpha=1.0, width=0.8, zorder=2)
+            bars = plt.bar(valueCounts.index.astype(str), valueCounts.values, color=colors, edgecolor='lightgrey', alpha=1.0, width=0.8, zorder=2)
             
             # Plot the grid behind the bars
             plt.grid(True, zorder=1)
